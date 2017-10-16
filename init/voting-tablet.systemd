@@ -1,0 +1,18 @@
+[Unit]
+Description=Voting Tablet Server
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/node /path/to/voting-tablet/bin/daemon /var/run/voting-tablet.pid http cardid
+ExecStopPost=-/bin/rm /var/run/voting-tablet.pid
+PIDFile=/var/run/voting-tablet.pid
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=voting-tablet
+User=root
+Group=root
+#PermissionsStartOnly=true
+
+[Install]
+WantedBy=multi-user.target

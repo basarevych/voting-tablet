@@ -1,0 +1,55 @@
+doctype html
+html
+    head
+        title= i18n('page_title')
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+
+    body
+        include header
+
+        #loaderWrapper
+            noscript= i18n('error_noscript')
+            div(style="text-align: center; margin-top: 10em")
+                img(src="/img/loader-large.gif" alt="")
+
+        #contentWrapper(style="display: none")
+            nav.navbar.navbar-expand-sm.sticky-top.navbar-light.bg-faded
+                .container
+                    a.navbar-brand(href="/") #{i18n('project_title')}
+                    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="#{i18n('navbar_menu_button')")
+                        span.navbar-toggler-icon
+                    #navbarSupportedContent.collapse.navbar-collapse.justify-content-between
+                        ul.navbar-nav
+                            li.nav-item.active
+                                a.nav-link(href="/") Home
+                            li.nav-item
+                                a.nav-link(href="/test") Test
+                            if user
+                                li.nav-item.d-sm-none
+                                    a.nav-link(href="/account/profile") #{i18n('profile_button')}
+                                    a.btn-sign-out.nav-link(href="javascript:void(0)") #{i18n('sign_out_button')}
+                            else
+                                li.nav-item.d-sm-none
+                                    a.btn-sign-in.nav-link(href="javascript:void(0)") #{i18n('sign_in_button')}
+                                li.nav-item.d-sm-none
+                                    a.nav-link(href="/account/create") #{i18n('sign_up_button')}
+                        if user
+                            ul.navbar-nav.d-none.d-sm-block
+                                li.nav-item.dropdown
+                                    a#authMenuButton.nav-link.dropdown-toggle(href="javascript:void(0)" data-toggle="dropdown")
+                                        i.fa.fa-user.fa-mr
+                                        | #{user.displayName || user.email || "anonymous"}
+                                    .dropdown-menu(aria-labelledby="authMenuButton")
+                                        a.dropdown-item(href="/account/profile") #{i18n('profile_button')}
+                                        .dropdown-divider
+                                        a.btn-sign-out.dropdown-item(href="javascript:void(0)") #{i18n('sign_out_button')}
+                        else
+                            .d-none.d-sm-block
+                                button.btn.btn-link(type="button" data-toggle="modal" data-target="#signInModal") #{i18n('sign_in_button')}
+                                span #{i18n('sign_buttons_divider')}
+                                a.btn.btn-link(href="/account/create") #{i18n('sign_up_button')}
+
+            .mt-5
+                block content

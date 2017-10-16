@@ -1,0 +1,234 @@
+{
+  "project_title": {
+    "message": "ARPEN",
+    "description": "Name of the project"
+  },
+  "page_title": {
+    "message": "ARPEN",
+    "description": "Title of browser tab"
+  },
+  "error_noscript": {
+    "message": "JavaScript is required",
+    "description": "Message when JavaScript is disabled"
+  },
+  "error_401_html": {
+    "message": "<p>Access to this page requires authentication. Please <a class=\"btn-sign-in\" href=\"javascript:void(0)\">sign in</a>.</p>",
+    "description": "Message for 401 Unauthorized error"
+  },
+  "error_403_html": {
+    "message": "<p>You are not allowed to access this page, sorry.</p>",
+    "description": "Message for 403 Forbidden error"
+  },
+  "error_404_html": {
+    "message": "<p>Requested page or resource is not found on this server.</p>",
+    "description": "Message for 404 Not Found error"
+  },
+  "error_500_html": {
+    "message": "<p>Something went wrong while processing your request. Administration is notified.</p>",
+    "description": "Message for 500 Internal Server Error error"
+  },
+  "sign_in_button": {
+    "message": "Sign in",
+    "description": "Title of sign in button"
+  },
+  "sign_up_button": {
+    "message": "Sign up",
+    "description": "Title of sign up button"
+  },
+  "sign_out_button": {
+    "message": "Sign out",
+    "description": "Title of sign out button"
+  },
+  "sign_buttons_divider": {
+    "message": "or",
+    "description": "Text between sign in and sign up buttons"
+  },
+  "profile_button": {
+    "message": "Profile",
+    "description": "Title of profile button"
+  },
+  "navbar_menu_button": {
+    "message": "Menu",
+    "description": "Label for menu button of navbar"
+  },
+  "modal_close_button": {
+    "message": "Close",
+    "description": "Label for X button of modals"
+  },
+  "form_control_required": {
+    "message": "Required field",
+    "description": "Label for controls that must have input"
+  },
+  "form_field_required": {
+    "message": "This field is required",
+    "description": "Message when the field is empty"
+  },
+  "form_min_length": {
+    "message": "Minimum length of the field is {min} {min, plural, =1 {character} other {characters}}",
+    "description": "Message when value is too short"
+  },
+  "form_email_invalid": {
+    "message": "Please enter valid email address",
+    "description": "Message when email is not valid"
+  },
+  "sign_in_title": {
+    "message": "Sign in",
+    "description": "Title of sign in modal"
+  },
+  "sign_in_email_label": {
+    "message": "Email:",
+    "description": "Label of email input of sign in modal"
+  },
+  "sign_in_password_label": {
+    "message": "Password:",
+    "description": "Label of password input of sign in modal"
+  },
+  "sign_in_cancel_button": {
+    "message": "Cancel",
+    "description": "Title of cancel button of sign in modal"
+  },
+  "sign_in_submit_button": {
+    "message": "Sign in",
+    "description": "Title of submit button of sign in modal"
+  },
+  "sign_in_invalid_credentials": {
+    "message": "Invalid email or password",
+    "description": "Message for wrong email or password in sign in modal"
+  },
+  "sign_up_title": {
+    "message": "Sign up",
+    "description": "Title of sign up form"
+  },
+  "sign_up_name_label": {
+    "message": "Display name:",
+    "description": "Label of display name input of sign up form"
+  },
+  "sign_up_email_label": {
+    "message": "Email:",
+    "description": "Label of email input of sign up form"
+  },
+  "sign_up_password1_label": {
+    "message": "Password:",
+    "description": "Label of first password input of sign up form"
+  },
+  "sign_up_password2_label": {
+    "message": "Retype password:",
+    "description": "Label of second password input of sign up form"
+  },
+  "sign_up_submit_button": {
+    "message": "Sign up",
+    "description": "Title of submit button of sign up form"
+  },
+  "sign_up_email_exists": {
+    "message": "This email is already registered",
+    "description": "Message when email is already registered in sign up form"
+  },
+  "sign_up_passwords_mismatch": {
+    "message": "Retyped password is not the same",
+    "description": "Message when new and retyped passwords do not match in sign up form"
+  },
+  "sign_up_success": {
+    "message": "Confirmation link has been sent to your email",
+    "description": "Message when successfully registered in sign up form"
+  },
+  "sign_up_user_failure": {
+    "message": "Could not create account. Please try again later",
+    "description": "Message when user creation failed in sign up form"
+  },
+  "sign_up_email_failure": {
+    "message": "Could not send email. Please try again later",
+    "description": "Message when emailing failed in sign up form"
+  },
+  "account_confirm_title_start": {
+    "message": "Account activation",
+    "description": "Start title of account activation page"
+  },
+  "account_confirm_message_start": {
+    "message": "Welcome to {project}! Your account is ready to be activated",
+    "description": "Start message of account activation page"
+  },
+  "account_confirm_button": {
+    "message": "Activate account",
+    "description": "Activate account button message"
+  },
+  "account_confirm_title_success": {
+    "message": "Account activated",
+    "description": "Success title of account activation page"
+  },
+  "account_confirm_message_success": {
+    "message": "Your account has been successfully activated",
+    "description": "Success message of account activation page"
+  },
+  "account_confirm_title_failure": {
+    "message": "Link expired",
+    "description": "Failure title of account activation page"
+  },
+  "account_confirm_message_failure": {
+    "message": "This link is no longer valid",
+    "description": "Failure message of account activation page"
+  },
+  "account_confirm_timer": {
+    "message": "Redirecting in {second} {second, plural, =1 {second} other {seconds}}...",
+    "description": "Account activation redirect timer message"
+  },
+  "profile_title": {
+    "message": "Profile",
+    "description": "Title of profile form"
+  },
+  "profile_email_label": {
+    "message": "Email:",
+    "description": "Label of email input of profile form"
+  },
+  "profile_name_label": {
+    "message": "Display name:",
+    "description": "Label of display name input of profile form"
+  },
+  "profile_cur_password_label": {
+    "message": "Current password:",
+    "description": "Label of current password input of profile form"
+  },
+  "profile_cur_password_help": {
+    "message": "Required when changing the password",
+    "description": "Contents of current password help of profile form"
+  },
+  "profile_new_password1_label": {
+    "message": "New password:",
+    "description": "Label of new password input of profile form"
+  },
+  "profile_new_password1_help": {
+    "message": "Leave empty to not change the password",
+    "description": "Contents of new password help of profile form"
+  },
+  "profile_new_password2_label": {
+    "message": "Retype new password:",
+    "description": "Label of retyped password input of profile form"
+  },
+  "profile_submit_button": {
+    "message": "Save changes",
+    "description": "Title of submit button of profile form"
+  },
+  "profile_passwords_mismatch": {
+    "message": "Retyped password is not the same",
+    "description": "Message when new and retyped passwords do not match in profile form"
+  },
+  "profile_password_invalid": {
+    "message": "This is not the current password",
+    "description": "Message when current password is wrong in profile form"
+  },
+  "profile_success": {
+    "message": "Changes saved",
+    "description": "Message when profile is updated in profile form"
+  },
+  "account_activation_subject": {
+    "message": "Account activation ({project})",
+    "description": "Subject line of account activation email"
+  },
+  "account_activation_text": {
+    "message": "Welcome to {project}!\n\nIn order to activate your account please open the following link: {link}",
+    "description": "Text version of account activation email"
+  },
+  "account_activation_html": {
+    "message": "<p>Welcome to {project}!</p><p>In order to activate your account please open the following link: <a href=\"{link}\">{link}</a></p>",
+    "description": "Html version of account activation email"
+  }
+}

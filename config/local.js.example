@@ -1,0 +1,131 @@
+/**
+ * Installation specific application configuration
+ */
+const path = require('path');
+
+module.exports = {
+    // Server instance name (alphanumeric)
+    instance: 'server1',
+
+    // Official URL
+    official_url: 'http://localhost:3000',
+
+    // Environment
+    env: process.env.NODE_ENV || (!!process.env.DEBUG ? 'development' : 'production'),
+
+    // Loaded modules
+    modules: [
+        '~arpen-express',
+        '~arpen-i18n',
+        'index',
+    ],
+
+    // Servers
+    servers: {
+        http: {
+            class: 'servers.express',
+            enable: true,
+            host: "0.0.0.0",
+            port: 3000,
+            ssl: {
+                enable: false,
+            },
+            express: {
+                view_engine: 'pug',
+                case_sensitive_routing: true,
+                strict_routing: false,
+                trust_proxy: false,
+            },
+            options: {
+                body_limit: "500mb",
+            },
+            middleware: [ // Middleware, in this order, service names
+                'express.favicon',
+                'express.requestLogger',
+                'express.requestParser',
+                'express.staticFiles',
+                'express.i18n',
+                'express.session',
+                'express.routes',
+                'express.errorHandler',                 // should be the last one
+            ],
+            session: {
+                bridge: 'expressSession',
+                expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
+                save_interval: 60,                  // seconds, 0 to update session in the DB on every request
+                secret: 'some unique secret here',  // could be "pwgen 32 1" output
+                //ip_header: 'X-Custom-Header',     // Name of header to get IP from (socket IP otherwise)
+            },
+        },
+        cardid: {
+            class: 'servers.cardid',
+            base_port: 3000,
+            num_devices: 1,
+        }
+    },
+
+    // SMTP servers
+    smtp: {
+        main: {
+            host: 'localhost',
+            port: 25,
+            ssl: false,
+            //user: 'username',
+            //password: 'password',
+        },
+    },
+
+    // MySQL servers
+    mysql: {
+        portal: {
+            host: 'localhost',
+            port: 3306,
+            user: 'voting_tablet',
+            password: 'password',
+            database: 'portal',
+            connection_limit: 100,
+        },
+    },
+
+    email: {
+        from: 'root@localhost',
+        log: {
+            enable: false,                  // email logger messages or not
+            level: 'error',
+            to: 'debug@example.com',
+        },
+        crash: {
+            enable: false,                  // email program crash or not
+            to: 'debug@example.com',
+        },
+    },
+
+    logs: {
+        main: {
+            level: 'info',
+            default: true,
+            name: 'error.log',
+            path: path.join(__dirname, '..', 'logs'),
+            interval: '1d',
+            mode: 0o640,
+            max_files: 3,
+            history: path.join(__dirname, '..', 'logs', 'error.log.history'),
+        },
+        access: {
+            level: 'info',
+            name: 'access.log',
+            path: path.join(__dirname, '..', 'logs'),
+            interval: '1d',
+            mode: 0o640,
+            max_files: 3,
+            history: path.join(__dirname, '..', 'logs', 'access.log.history'),
+        },
+    },
+
+/*
+    user: { // Drop privileges, otherwise comment out this section
+        uid: 'www',
+        gid: 'www',
+    },
+*/
+};
