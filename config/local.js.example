@@ -18,6 +18,7 @@ module.exports = {
         '~arpen-express',
         '~arpen-i18n',
         'index',
+        'cardid',
     ],
 
     // Servers
