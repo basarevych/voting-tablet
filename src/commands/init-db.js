@@ -68,6 +68,8 @@ class InitDb {
             let sql =
 `create user '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}'
     identified by '${this._config.get(`mysql.${instance}.password`)}';
+grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_sessions
+    to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_users
     to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_votes

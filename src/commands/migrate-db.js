@@ -63,7 +63,7 @@ class MigrateDb {
             try {
                 await client.query(
                     `SELECT *
-                       FROM voting_tablet_users`
+                       FROM voting_tablet_sessions`
                 );
                 currentVersion = 1;
             } catch (error) {
