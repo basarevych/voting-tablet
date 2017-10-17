@@ -1,0 +1,70 @@
+{
+  "project_title": {
+    "message": "Arzinger",
+    "description": "Name of the project"
+  },
+  "page_title": {
+    "message": "Arzinger",
+    "description": "Title of browser tab"
+  },
+  "error_noscript": {
+    "message": "JavaScript обязателен",
+    "description": "Message when JavaScript is disabled"
+  },
+  "error_401_html": {
+    "message": "<p>Доступ к этой странице требует авторизации. Пожалуйста, <a href=\"/\">войдите</a>.</p>",
+    "description": "Message for 401 Unauthorized error"
+  },
+  "error_403_html": {
+    "message": "<p>Извините, но вам не разрешен доступ к этой странице.</p>",
+    "description": "Message for 403 Forbidden error"
+  },
+  "error_404_html": {
+    "message": "<p>Запрошенная страница или ресурс не найден на этом сервере.</p>",
+    "description": "Message for 404 Not Found error"
+  },
+  "error_500_html": {
+    "message": "<p>Что-то пошло не так при обработке этого запроса. Администрация уведомлена.</p>",
+    "description": "Message for 500 Internal Server Error error"
+  },
+  "sign_in_button": {
+    "message": "Войти",
+    "description": "Title of sign in button"
+  },
+  "sign_out_button": {
+    "message": "Выйти",
+    "description": "Title of sign out button"
+  },
+  "form_control_required": {
+    "message": "Обязательное поле",
+    "description": "Label for controls that must have input"
+  },
+  "form_field_required": {
+    "message": "Это поле обязательно к заполнению",
+    "description": "Message when the field is empty"
+  },
+  "form_field_invalid": {
+    "message": "Неправильное значение",
+    "description": "Message when the field is invalid"
+  },
+  "form_min_length": {
+    "message": "Минимальная длина поля {min} {min, plural, =1 {символ} =2 {символа} =3 {символа} =4 {символа} other {символов}}",
+    "description": "Message when value is too short"
+  },
+  "sign_in_device_label": {
+    "message": "Устройство №:",
+    "description": "Label of device number input of sign in modal"
+  },
+  "sign_in_pin_code_label": {
+    "message": "Пин-код:",
+    "description": "Label of pin code input of sign in modal"
+  },
+  "sign_in_submit_button": {
+    "message": "Войти",
+    "description": "Title of submit button of sign in modal"
+  },
+  "sign_in_invalid_credentials": {
+    "message": "Неправильный пин-код",
+    "description": "Message for wrong email or password in sign in modal"
+  }
+}

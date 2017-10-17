@@ -52,6 +52,7 @@ module.exports = {
             ],
             session: {
                 bridge: 'expressSession',
+                session_repository: 'repositories.session',
                 expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
                 save_interval: 60,                  // seconds, 0 to update session in the DB on every request
                 secret: 'some unique secret here',  // could be "pwgen 32 1" output
@@ -60,6 +61,7 @@ module.exports = {
         },
         cardid: {
             class: 'servers.cardid',
+            pin_code: '000000',
             base_port: 3000,
             num_devices: 1,
         }

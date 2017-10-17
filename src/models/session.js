@@ -70,7 +70,7 @@ class SessionModel extends BaseModel {
      * @type {undefined|object}
      */
     set payload(payload) {
-        return this._setField('payload', payload && JSON.stringify(payload));
+        return this._setField('payload', payload);
     }
 
     /**
@@ -78,10 +78,7 @@ class SessionModel extends BaseModel {
      * @type {undefined|object}
      */
     get payload() {
-        let payload = this._getField('payload');
-        if (payload)
-            payload = JSON.parse(payloao);
-        return payload;
+        return this._getField('payload');
     }
 
     /**
@@ -89,7 +86,7 @@ class SessionModel extends BaseModel {
      * @type {undefined|object}
      */
     set info(info) {
-        return this._setField('info', info && JSON.stringify(info));
+        return this._setField('info', info);
     }
 
     /**
@@ -97,10 +94,7 @@ class SessionModel extends BaseModel {
      * @type {undefined|object}
      */
     get info() {
-        let info = this._getField('info');
-        if (info)
-            info = JSON.parse(info);
-        return info;
+        return this._getField('info');
     }
 
     /**
@@ -133,6 +127,36 @@ class SessionModel extends BaseModel {
      */
     get updatedAt() {
         return this._getField('updated_at');
+    }
+
+    /**
+     * Convert to object. Dates are converted to strings in UTC timezone
+     * @param {string[]} [fields]                       Fields to save
+     * @param {object} [options]                        Options
+     * @param {string|null} [options.timeZone='UTC']    DB time zone
+     * @return {object}                                 Returns serialized object
+     */
+    _serialize(fields, options = {}) {
+        let data = super._serialize(fields, options);
+        if (data.payload)
+            data.payload = JSON.stringify(data.payload);
+        if (data.info)
+            data.info = JSON.stringify(data.info);
+        return data;
+    }
+
+    /**
+     * Load data. Dates are expected to be in UTC and are converted into local timezone
+     * @param {object} data                             Raw DB data object
+     * @param {object} [options]                        Options
+     * @param {string|null} [options.timeZone='UTC']    DB time zone
+     */
+    _unserialize(data, options = {}) {
+        if (data.payload)
+            data.payload = JSON.parse(data.payload);
+        if (data.info)
+            data.info = JSON.parse(data.info);
+        return super._unserialize(data, options);
     }
 }
 

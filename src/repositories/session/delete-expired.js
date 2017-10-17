@@ -22,7 +22,7 @@ module.exports = async function (expiration, mysql) {
         let exp = this.getModel();
         exp.updatedAt = moment().subtract(expiration, 'seconds');
 
-        client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
+        client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql || this.constructor.instance);
         let result = await client.query(
             `DELETE 
                FROM ${this.constructor.table}

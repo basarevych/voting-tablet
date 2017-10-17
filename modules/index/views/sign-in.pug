@@ -1,0 +1,22 @@
+form#signInForm(onsubmit="return false")
+    input(type="text" style="display: none")
+    input(type="password" style="display: none")
+    .form-group.messages.center
+    .form-group.row
+        .col-sm-4.col-form-label.text-sm-right(for="signInDevice") #{i18n('sign_in_device_label')}
+            span.control-required #{i18n('form_control_required')}
+        .col-sm-8
+            select#signInDevice.form-control(name="device" validate)
+                - var i = 1
+                while i <= numDevices
+                    option(value=i) #{i}
+                    - i++
+            .invalid-feedback
+    .form-group.row
+        .col-sm-4.col-form-label.text-sm-right(for="signInPinCode") #{i18n('sign_in_pin_code_label')}
+            span.control-required #{i18n('form_control_required')}
+        .col-sm-8
+            input#signInPinCode.form-control(type="password" name="pin_code" validate)
+            .invalid-feedback
+    .form-group.center
+            button.btn.btn-primary.btn-wide(type="submit") #{i18n('sign_in_submit_button')}

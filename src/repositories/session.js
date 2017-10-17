@@ -29,6 +29,14 @@ class SessionRepository extends BaseRepository {
     }
 
     /**
+     * DB instance
+     * @type {string}
+     */
+    static get instance() {
+        return 'portal';
+    }
+
+    /**
      * DB table name
      * @type {string}
      */

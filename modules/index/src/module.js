@@ -11,10 +11,12 @@ class Index {
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
+     * @param {I18n} i18n                                   I18n service
      */
-    constructor(app, config) {
+    constructor(app, config, i18n) {
         this._app = app;
         this._config = config;
+        this._i18n = i18n;
     }
 
     /**
@@ -33,6 +35,7 @@ class Index {
         return [
             'app',
             'config',
+            'i18n',
         ];
     }
 
@@ -41,7 +44,8 @@ class Index {
      * @return {Promise}
      */
     async bootstrap() {
-        this.routes = this._app.get(/^routes\..+$/);
+        this._i18n.defaultLocale = 'ru';
+        this.routes = this._app.get(/^index\.routes\..+$/);
     }
 
     /**
