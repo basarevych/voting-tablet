@@ -40,7 +40,11 @@ class AuthorizedRoute {
      * @param {function} next       Express next middleware function
      */
     getAuthorized(req, res, next) {
-        res.json({ success: !!req.session.started });
+        res.json({
+            success: !!req.session.started,
+            server: req.session.server,
+            token: req.session.token,
+        });
     }
 }
 

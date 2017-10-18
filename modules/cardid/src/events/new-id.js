@@ -13,11 +13,18 @@ class NewId {
      * @param {App} app                             The application
      * @param {object} config                       Configuration
      * @param {Logger} logger                       Logger service
+     * @param {Map} sockets                         Web sockets
      */
-    constructor(app, config, logger) {
+    constructor(app, config, logger, sockets) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+
+        if (!sockets) {
+            sockets = new Map();
+            this._app.registerInstance(sockets, 'sockets');
+        }
+        this._sockets = sockets;
     }
 
     /**
@@ -37,6 +44,7 @@ class NewId {
             'app',
             'config',
             'logger',
+            'sockets?'
         ];
     }
 
@@ -51,11 +59,19 @@ class NewId {
     /**
      * Event handler
      * @param {number} device       Device number
-     * @param {object} message      The message
+     * @param {string} message      The message
      */
     async handle(device, message) {
         try {
             this._logger.debug('new-id', `Got NEW ID on ${device}: ${message}`);
+
+            for (let socket of this._sockets.values()) {
+                if (socket.device === device) {
+                    socket.card = message.trim();
+                    socket.socket.emit('identify');
+                    break;
+                }
+            }
         } catch (error) {
             this._logger.error(new NError(error, 'NewId.handle()'));
         }

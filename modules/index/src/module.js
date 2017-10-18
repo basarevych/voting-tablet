@@ -46,6 +46,23 @@ class Index {
     async bootstrap() {
         this._i18n.defaultLocale = 'ru';
         this.routes = this._app.get(/^index\.routes\..+$/);
+        this.events = this._app.get(/^index\.events\..+$/);
+    }
+
+    /**
+     * Register module with the server
+     * @param {object} server                                       Server instance
+     * @return {Promise}
+     */
+    async register(server) {
+        if (server.constructor.provides !== 'servers.express')
+            return;
+
+        for (let event of this.events.values()) {
+            if (event.type === 'socket')
+                server.socketEvents.push(event.name);
+            server.on(event.type + '_' + event.name, event.handle.bind(event));
+        }
     }
 
     /**

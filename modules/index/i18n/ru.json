@@ -7,6 +7,10 @@
     "message": "Arzinger",
     "description": "Title of browser tab"
   },
+  "no_connection": {
+    "message": "Нет связи",
+    "description": "Message when not connected"
+  },
   "error_noscript": {
     "message": "JavaScript обязателен",
     "description": "Message when JavaScript is disabled"

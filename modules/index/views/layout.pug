@@ -8,10 +8,14 @@ html
     body
         include header
 
-        #page1
-            noscript= i18n('error_noscript')
-            div(style="text-align: center")
-                img(src="/img/loader-large.gif" alt="")
+        .when-disconnected(style="display: none")
+            h3 #{i18n('no_connection')}
 
-        #page2(style="display: none")
-            block content
+        .when-connected
+            #page1
+                noscript= i18n('error_noscript')
+                div(style="text-align: center")
+                    img(src="/img/loader-large.gif" alt="")
+
+            #page2(style="display: none")
+                block content

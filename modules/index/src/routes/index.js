@@ -63,7 +63,7 @@ class IndexRoute {
         if (!req.session.started)
             return res.render('sign-in', { numDevices: this._config.get(`servers.cardid.num_devices`)});
 
-        res.render(req.user ? 'start' : 'card');
+        res.render('start');
     }
 }
 
