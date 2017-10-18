@@ -28,7 +28,7 @@ function signIn() {
             success: data => {
                 Form.reset(signInWrapper);
                 if (data.success) {
-                    transition('/start');
+                    setTimeout(() => { transition('/start'); }, 1000);
                 } else {
                     Form.unlock(signInWrapper);
                     if (signInForm.timestamp <= timestamp) {
@@ -47,7 +47,7 @@ function signIn() {
  * Sign out
  */
 function signOut() {
-    $.post('/sign-out', () => {
+    $.get('/sign-out', () => {
         window.location.reload();
     });
 }

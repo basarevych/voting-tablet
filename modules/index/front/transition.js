@@ -23,7 +23,7 @@ function checkConnected() {
     }
 }
 
-export function install(el) {
+function install(el) {
     installAuth(el);
     installIdentify(el);
     installSelect(el);
@@ -41,7 +41,10 @@ export function install(el) {
     }
 }
 
+export let lastTransition = { timestamp: 0 };
+
 export function transition(url) {
+    lastTransition.timestamp = Date.now();
     checkConnected();
 
     $.get('/authorized', auth => {

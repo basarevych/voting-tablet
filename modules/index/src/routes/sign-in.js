@@ -11,17 +11,30 @@ const NError = require('nerror');
 class SignInRoute {
     /**
      * Create service
+     * @param {App} app                         The application
      * @param {object} config                   Configuration
      * @param {SignInForm} signInForm           SignIn form
+     * @param {Session} session                 Session service
+     * @param {SessionRepository} sessionRepo   Session repository
+     * @param {Map} sockets                     Web sockets
      */
-    constructor(config, signInForm) {
+    constructor(app, config, signInForm, session, sessionRepo, sockets) {
         this.priority = 0;
         this.router = express.Router();
         this.router.post('/sign-in', this.postSignIn.bind(this));
         this.router.get('/sign-out', this.getSignOut.bind(this));
 
+        this._app = app;
         this._config = config;
         this._signInForm = signInForm;
+        this._session = session;
+        this._sessionRepo = sessionRepo;
+
+        if (!sockets) {
+            sockets = new Map();
+            this._app.registerInstance(sockets, 'sockets');
+        }
+        this._sockets = sockets;
     }
 
     /**
@@ -38,8 +51,12 @@ class SignInRoute {
      */
     static get requires() {
         return [
+            'app',
             'config',
-            'forms.signIn'
+            'forms.signIn',
+            'session',
+            'repositories.session',
+            'sockets?',
         ];
     }
 
@@ -66,6 +83,17 @@ class SignInRoute {
             req.session.started = Date.now();
             req.session.device = form.getField('device');
             req.user = null;
+
+            for (let old of await this._sessionRepo.findByDevice(req.session.device))
+                await this._session.destroyAll(old);
+
+            for (let socket of this._sockets.values()) {
+                if (socket.device === req.session.device) {
+                    delete socket.device;
+                    socket.socket.emit('reload');
+                }
+            }
+
             res.json({ success: true });
         } catch (error) {
             next(new NError(error, 'postSignIn()'));

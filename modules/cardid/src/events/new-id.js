@@ -76,6 +76,7 @@ class NewId {
 
                     let users = await this._userRepo.findByCardId(socket.cardId);
                     socket.user = users.length && users[0];
+                    delete socket.targetId;
 
                     if (socket.user)
                         socket.socket.emit('select');

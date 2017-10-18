@@ -13,14 +13,12 @@ class RegisterEvent {
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
      * @param {Session} session                 Session service
-     * @param {SessionRepository} sessionRepo   Session repository
      * @param {Map} sockets                     Web sockets
      */
-    constructor(app, logger, session, sessionRepo, sockets) {
+    constructor(app, logger, session, sockets) {
         this._app = app;
         this._logger = logger;
         this._session = session;
-        this._sessionRepo = sessionRepo;
 
         if (!sockets) {
             sockets = new Map();
@@ -46,7 +44,6 @@ class RegisterEvent {
             'app',
             'logger',
             'session',
-            'repositories.session',
             'sockets?',
         ];
     }
@@ -85,16 +82,10 @@ class RegisterEvent {
                 return;
 
             socket.device = session.payload.device;
-            this._logger.debug('register', `Found device ${socket.device}`);
-
-            for (let old of await this._sessionRepo.findByDevice(socket.device)) {
-                if (old.id !== session.id)
-                    await this._session.destroyAll(old);
-            }
 
             for (let [oldId, oldSocket] of this._sockets) {
                 if (oldId !== id && oldSocket.device === socket.device) {
-                    this._sockets.delete(oldId);
+                    delete oldSocket.device;
                     oldSocket.socket.emit('reload');
                 }
             }
