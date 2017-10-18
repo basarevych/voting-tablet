@@ -3,7 +3,6 @@
  * @module front/select
  */
 
-
 'use strict';
 
 import { transition, lastTransition } from 'transition';

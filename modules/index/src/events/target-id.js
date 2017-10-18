@@ -72,7 +72,7 @@ class TargetIdEvent {
             if (!socket || typeof message !== 'object' || message === null)
                 return;
 
-            if (!socket.device || !socket.user)
+            if (!socket.device || !socket.user || socket.targetId)
                 return socket.socket.emit('reload');
 
             let targetId = parseInt(message.id);

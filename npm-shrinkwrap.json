@@ -117,9 +117,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.20",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.20.tgz",
-      "integrity": "sha512-rUM7TUUDJCHRtiwwd+HiVYJeIPo95TDo3a3FdUyyhMorXHKs8QWVLfcC7swZEHjq4Ot8jW4mOc8/LrxgzHJlDw==",
+      "version": "0.2.22",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.22.tgz",
+      "integrity": "sha512-1Ei6o3NOzNoC1NI1rShcr8uNhi9T7OvFAd4wjjFuBh2suAVxrarm7PkFHveDSV9oTQbTtpsOHSAPaEYMGFbaJg==",
       "requires": {
         "debug": "3.1.0",
         "fs-ext": "1.0.0",
@@ -133,9 +133,9 @@
       }
     },
     "arpen-express": {
-      "version": "0.0.6",
-      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.6.tgz",
-      "integrity": "sha512-K8Ha5QY/pRs7b63omdOZ1rZd1/4ZsgO9YwCc0/P/4PwFEjz/8aPZyPzA5KID8PVVSFmPmvWw1Tw9duFw4r39sg==",
+      "version": "0.0.8",
+      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.8.tgz",
+      "integrity": "sha512-JIyREWtpICkCod7Imo9NkoDBpxtWra46aVYQ70fdKaM6oRyYOJ2hziE4I1If7anUxvKZHRWWIEBMkxuGMPkrug==",
       "requires": {
         "body-parser": "1.18.2",
         "cookie-parser": "1.4.3",
@@ -143,7 +143,8 @@
         "morgan": "1.9.0",
         "nerror": "1.0.0",
         "pug": "2.0.0-rc.4",
-        "serve-favicon": "2.4.5"
+        "serve-favicon": "2.4.5",
+        "uuid": "3.1.0"
       }
     },
     "arpen-i18n": {
@@ -428,14 +429,14 @@
       }
     },
     "chalk": {
-      "version": "2.1.0",
-      "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.1.0.tgz",
-      "integrity": "sha512-LUHGS/dge4ujbXMJrnihYMcL4AoOweGnw9Tp3kQuqy1Kx5c1qKjqvMJZ6nVJPMWJtKCTN72ZogH3oeSO9g9rXQ==",
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.2.0.tgz",
+      "integrity": "sha512-0BMM/2hG3ZaoPfR6F+h/oWpZtsh3b/s62TjSM6MGCJWEbJDN1acqCXvyhhZsDSVFklpebUoQ5O1kKC7lOzrn9g==",
       "dev": true,
       "requires": {
         "ansi-styles": "3.2.0",
         "escape-string-regexp": "1.0.5",
-        "supports-color": "4.4.0"
+        "supports-color": "4.5.0"
       },
       "dependencies": {
         "ansi-styles": {
@@ -448,9 +449,9 @@
           }
         },
         "supports-color": {
-          "version": "4.4.0",
-          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-4.4.0.tgz",
-          "integrity": "sha512-rKC3+DyXWgK0ZLKwmRsrkyHVZAjNkfzeehuFWdGGcqGDTZFH73+RH6S/RDAAxl9GusSjZSUWYLmT9N5pzXFOXQ==",
+          "version": "4.5.0",
+          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-4.5.0.tgz",
+          "integrity": "sha1-vnoN5ITexcXN34s9WRJQRJEvY1s=",
           "dev": true,
           "requires": {
             "has-flag": "2.0.0"
@@ -924,14 +925,14 @@
       "dev": true
     },
     "eslint": {
-      "version": "4.8.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-4.8.0.tgz",
-      "integrity": "sha1-Ip7w41Tg5h2DfHqA/fuoJeGZgV4=",
+      "version": "4.9.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-4.9.0.tgz",
+      "integrity": "sha1-doedJ0BoJhsZH+Dy9Wx0wvQgjos=",
       "dev": true,
       "requires": {
         "ajv": "5.2.3",
         "babel-code-frame": "6.26.0",
-        "chalk": "2.1.0",
+        "chalk": "2.2.0",
         "concat-stream": "1.6.0",
         "cross-spawn": "5.1.0",
         "debug": "3.1.0",
@@ -1082,9 +1083,9 @@
       }
     },
     "eslint-plugin-promise": {
-      "version": "3.5.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-3.5.0.tgz",
-      "integrity": "sha1-ePu2/+BHIBYnVp6FpsU3OvKmj8o=",
+      "version": "3.6.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-3.6.0.tgz",
+      "integrity": "sha512-YQzM6TLTlApAr7Li8vWKR+K3WghjwKcYzY0d2roWap4SLK+kzuagJX/leTetIDWsFcTFnKNJXWupDCD6aZkP2Q==",
       "dev": true
     },
     "eslint-plugin-standard": {
@@ -1619,7 +1620,7 @@
       "dev": true,
       "requires": {
         "ansi-escapes": "3.0.0",
-        "chalk": "2.1.0",
+        "chalk": "2.2.0",
         "cli-cursor": "2.1.0",
         "cli-width": "2.2.0",
         "external-editor": "2.0.5",
@@ -3096,7 +3097,7 @@
       "requires": {
         "ajv": "5.2.3",
         "ajv-keywords": "2.1.0",
-        "chalk": "2.1.0",
+        "chalk": "2.2.0",
         "lodash": "4.17.4",
         "slice-ansi": "1.0.0",
         "string-width": "2.1.1"
