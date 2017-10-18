@@ -22,7 +22,7 @@ function signIn() {
             data: Form.extract(signInWrapper),
             statusCode: {
                 401: () => {
-                    transition('/start')
+                    transition('/start');
                 },
             },
             success: data => {

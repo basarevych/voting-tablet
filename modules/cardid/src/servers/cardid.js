@@ -2,7 +2,6 @@
  * CardID server
  * @module servers/cardid
  */
-const fs = require('fs');
 const net = require('net');
 const uuid = require('uuid');
 const EventEmitter = require('events');
@@ -63,7 +62,7 @@ class Cardid extends EventEmitter {
                     listening: false,
                     clients: new Map(),
                 }
-            )
+            );
         }
     }
 
@@ -198,7 +197,7 @@ class Cardid extends EventEmitter {
 
         this._logger.debug('cardid', `Incoming message from ${id}`);
         client.data += data.toString();
-        return true;
+        return !client.data.includes('\n');
     }
 
     /**

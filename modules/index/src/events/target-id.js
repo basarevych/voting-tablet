@@ -1,13 +1,13 @@
 /**
- * Web socket disconnected event
- * @module index/events/disconnect
+ * Target ID event
+ * @module index/events/target-id
  */
 const NError = require('nerror');
 
 /**
- * Disconnect event class
+ * TargetId event class
  */
-class DisconnectEvent {
+class TargetIdEvent {
     /**
      * Create service
      * @param {App} app                         The application
@@ -26,11 +26,11 @@ class DisconnectEvent {
     }
 
     /**
-     * Service name is 'index.events.disconnect'
+     * Service name is 'index.events.targetId'
      * @type {string}
      */
     static get provides() {
-        return 'index.events.disconnect';
+        return 'index.events.targetId';
     }
 
     /**
@@ -38,7 +38,11 @@ class DisconnectEvent {
      * @type {string[]}
      */
     static get requires() {
-        return ['app', 'logger', 'sockets?'];
+        return [
+            'app',
+            'logger',
+            'sockets?',
+        ];
     }
 
     /**
@@ -54,21 +58,35 @@ class DisconnectEvent {
      * @type {string}
      */
     get name() {
-        return 'disconnect';
+        return 'target_id';
     }
 
     /**
      * Handle event
      * @param {string} id                       Socket ID
+     * @param {object} message                  Socket message
      */
-    async handle(id) {
+    async handle(id, message) {
         try {
-            this._logger.debug('connection', `Disconnected ${id}`);
-            this._sockets.delete(id);
+            let socket = this._sockets.get(id);
+            if (!socket || typeof message !== 'object' || message === null)
+                return;
+
+            if (!socket.device || !socket.user)
+                return socket.socket.emit('reload');
+
+            let targetId = parseInt(message.id);
+            if (!isFinite(targetId))
+                return;
+
+            this._logger.debug('target-id', `Got TARGET ID: ${targetId}`);
+
+            socket.targetId = targetId;
+            socket.socket.emit('vote');
         } catch (error) {
-            this._logger.error(new NError(error, 'DisconnectEvent.handle()'));
+            this._logger.error(new NError(error, 'TargetIdEvent.handle()'));
         }
     }
 }
 
-module.exports = DisconnectEvent;
+module.exports = TargetIdEvent;

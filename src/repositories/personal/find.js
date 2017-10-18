@@ -1,21 +1,21 @@
 /**
- * SessionRepository.findByToken()
+ * PersonalRepository.find()
  */
 'use strict';
 
 const NError = require('nerror');
 
 /**
- * Find a model by token
+ * Find a model by ID
  * @instance
- * @method findByToken
- * @memberOf module:repositories/session~SessionRepository
- * @param {string} token                    Token to search by
+ * @method find
+ * @memberOf module:repositories/personal~PersonalRepository
+ * @param {number} id                       ID to search by
  * @param {MySQLClient|string} [mysql]      Will reuse the MySQL client provided, or if it is a string then will
  *                                          connect to this instance of MySQL.
  * @return {Promise}                        Resolves to array of models
  */
-module.exports = async function (token, mysql) {
+module.exports = async function (id, mysql) {
     let client;
 
     try {
@@ -23,8 +23,8 @@ module.exports = async function (token, mysql) {
         let rows = await client.query(
             `SELECT * 
                FROM ${this.constructor.table} 
-              WHERE token = ?`,
-            [token]
+              WHERE uid = ?`,
+            [id]
         );
 
         if (typeof mysql !== 'object')
@@ -35,6 +35,6 @@ module.exports = async function (token, mysql) {
         if (client && typeof mysql !== 'object')
             client.done();
 
-        throw new NError(error, { token }, 'SessionRepository.findByToken()');
+        throw new NError(error, { id }, 'PersonalRepository.find()');
     }
 };

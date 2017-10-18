@@ -72,6 +72,8 @@ grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting
     to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_users
     to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
+grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_targets
+    to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting_tablet_votes
     to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 grant select on ${this._config.get(`mysql.${instance}.database`)}.scms_personal

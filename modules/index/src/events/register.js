@@ -78,21 +78,24 @@ class RegisterEvent {
             if (!socket || typeof message !== 'object' || message === null)
                 return;
 
-            let { session } = this._session.decodeJwt(message.server, message.token);
+            this._logger.debug('register', `Got REGISTER`);
+
+            let { session } = await this._session.decodeJwt(message.server, message.token);
             if (!session || !session.payload.started)
                 return;
 
             socket.device = session.payload.device;
+            this._logger.debug('register', `Found device ${socket.device}`);
 
-            for (let old of this._sessionRepo.findByDevice(socket.device)) {
+            for (let old of await this._sessionRepo.findByDevice(socket.device)) {
                 if (old.id !== session.id)
-                    await this._session.destroy(message.server, old);
+                    await this._session.destroyAll(old);
             }
 
             for (let [oldId, oldSocket] of this._sockets) {
                 if (oldId !== id && oldSocket.device === socket.device) {
-                    oldSocket.socket.emit('reload');
                     this._sockets.delete(oldId);
+                    oldSocket.socket.emit('reload');
                 }
             }
         } catch (error) {

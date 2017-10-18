@@ -91,11 +91,11 @@ class MigrateDb {
                         'sh',
                         [
                             '-c',
-                            `mysql -f -u ${this._config.get(`mysql.${instance}.user`)} `
-                            + `-p${this._config.get(`mysql.${instance}.password`)} `
-                            + `-h ${this._config.get(`mysql.${instance}.host`)} `
-                            + `-P ${this._config.get(`mysql.${instance}.port`)} `
-                            + `${this._config.get(`mysql.${instance}.database`)} < ${filename}`
+                            `mysql -f -u ${this._config.get(`mysql.${instance}.user`)} ` +
+                            `-p${this._config.get(`mysql.${instance}.password`)} ` +
+                            `-h ${this._config.get(`mysql.${instance}.host`)} ` +
+                            `-P ${this._config.get(`mysql.${instance}.port`)} ` +
+                            `${this._config.get(`mysql.${instance}.database`)} < ${filename}`
                         ],
                         { pipe: process }
                     );

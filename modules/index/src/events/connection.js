@@ -64,6 +64,7 @@ class ConnectionEvent {
      */
     async handle(id, socket) {
         try {
+            this._logger.debug('connection', `Connected ${id}`);
             this._sockets.set(id, { socket });
         } catch (error) {
             this._logger.error(new NError(error, 'ConnectionEvent.handle()'));

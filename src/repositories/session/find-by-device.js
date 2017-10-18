@@ -35,6 +35,6 @@ module.exports = async function (device, mysql) {
         if (client && typeof mysql !== 'object')
             client.done();
 
-        throw new NError(error, { id }, 'SessionRepository.findByDevice()');
+        throw new NError(error, { device }, 'SessionRepository.findByDevice()');
     }
 };

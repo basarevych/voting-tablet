@@ -59,7 +59,9 @@ class SignInForm {
 
         let device = parseInt(form.getField('device'));
         if (!isFinite(device) || device < 1 || device > this._config.get('servers.cardid.num_devices'))
-            form.addError('pin_code', 'form_field_invalid');
+            form.addError('device', 'form_field_invalid');
+        else
+            form.setField('device', device);
 
         if (!validator.isLength(form.getField('pin_code'), { min: 6 }))
             form.addError('pin_code', 'form_min_length', { min: 6 });

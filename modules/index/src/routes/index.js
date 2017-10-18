@@ -3,7 +3,6 @@
  * @module index/routes/index
  */
 const express = require('express');
-const NError = require('nerror');
 
 /**
  * Index route class
@@ -57,11 +56,8 @@ class IndexRoute {
      * @param {function} next       Express next middleware function
      */
     async getStart(req, res, next) {
-//        if (!req.session.started)
-//            return next(new NError({ httpStatus: 401 }, 'Unauthorized'));
-
         if (!req.session.started)
-            return res.render('sign-in', { numDevices: this._config.get(`servers.cardid.num_devices`)});
+            return res.render('sign-in', { numDevices: this._config.get(`servers.cardid.num_devices`) });
 
         res.render('start');
     }

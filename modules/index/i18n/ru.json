@@ -7,9 +7,45 @@
     "message": "Arzinger",
     "description": "Title of browser tab"
   },
-  "no_connection": {
+  "no_connection_message": {
     "message": "Нет связи",
     "description": "Message when not connected"
+  },
+  "identify_message": {
+    "message": "Поднесите карту к считывателю",
+    "description": "Message when not connected"
+  },
+  "choose_yourself_message": {
+    "message": "Пожалуйста, выберите себя",
+    "description": "Message when user is unknown"
+  },
+  "choose_target_message": {
+    "message": "Пожалуйста, выберите раздел",
+    "description": "Message when target is being selected"
+  },
+  "choose_score_message": {
+    "message": "Оцените, пожалуйста, работу данного раздела",
+    "description": "Message when score is being selected"
+  },
+  "thanks_message": {
+    "message": "Спасибо, ваша оценка принята",
+    "description": "Message when score is sent"
+  },
+  "score_1": {
+    "message": "Есть нарекания к работе",
+    "description": "Message when score is 1"
+  },
+  "score_2": {
+    "message": "Можно и лучше",
+    "description": "Message when score is 2"
+  },
+  "score_3": {
+    "message": "Хорошо",
+    "description": "Message when score is 3"
+  },
+  "score_4": {
+    "message": "Отлично",
+    "description": "Message when score is 4"
   },
   "error_noscript": {
     "message": "JavaScript обязателен",
@@ -70,5 +106,9 @@
   "sign_in_invalid_credentials": {
     "message": "Неправильный пин-код",
     "description": "Message for wrong email or password in sign in modal"
+  },
+  "vote_ok_button": {
+    "message": "OK",
+    "description": "Title of submit button of vote screen"
   }
 }

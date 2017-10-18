@@ -3,6 +3,7 @@
  * @module index/routes/sign-in
  */
 const express = require('express');
+const NError = require('nerror');
 
 /**
  * SignIn route class

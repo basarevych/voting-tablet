@@ -13,12 +13,14 @@ class NewId {
      * @param {App} app                             The application
      * @param {object} config                       Configuration
      * @param {Logger} logger                       Logger service
+     * @param {UserRepository} userRepo             User repository
      * @param {Map} sockets                         Web sockets
      */
-    constructor(app, config, logger, sockets) {
+    constructor(app, config, logger, userRepo, sockets) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._userRepo = userRepo;
 
         if (!sockets) {
             sockets = new Map();
@@ -44,6 +46,7 @@ class NewId {
             'app',
             'config',
             'logger',
+            'repositories.user',
             'sockets?'
         ];
     }
@@ -67,8 +70,18 @@ class NewId {
 
             for (let socket of this._sockets.values()) {
                 if (socket.device === device) {
-                    socket.card = message.trim();
-                    socket.socket.emit('identify');
+                    this._logger.debug('new-id', `Found device`);
+                    socket.cardId = message.trim();
+                    socket.cardTimestamp = Date.now();
+
+                    let users = await this._userRepo.findByCardId(socket.cardId);
+                    socket.user = users.length && users[0];
+
+                    if (socket.user)
+                        socket.socket.emit('select');
+                    else
+                        socket.socket.emit('identify');
+
                     break;
                 }
             }

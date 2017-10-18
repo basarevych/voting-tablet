@@ -28,6 +28,16 @@ CREATE TABLE voting_tablet_users (
 );
 
 --
+-- Targets
+--
+
+CREATE TABLE voting_tablet_targets (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    CONSTRAINT voting_tablet_targets_pk PRIMARY KEY (id)
+);
+
+--
 -- Votes
 --
 
@@ -35,7 +45,15 @@ CREATE TABLE voting_tablet_votes (
     id int(11) NOT NULL AUTO_INCREMENT,
     user_id int(11) NOT NULL,
     portal_id int(11) NOT NULL,
-    vote int(11) NOT NULL,
+    target_id int(11) NOT NULL,
+    score int(11) NOT NULL,
     voted_at timestamp NOT NULL,
     CONSTRAINT voting_tablet_votes_pk PRIMARY KEY (id)
 );
+
+--
+-- Data
+--
+
+INSERT INTO voting_tablet_targets (name)
+     VALUES ('HR'), ('PR'), ('IT'), ('Financial'), ('Reception'), ('Office manager');

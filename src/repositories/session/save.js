@@ -23,15 +23,15 @@ module.exports = async function (model, mysql) {
 
         let result = await client.transaction({ name: 'session_save' }, async rollback => {
             if (!model.id)
-                return this._save(model, client);
+                return this.__save(model, client);
 
             let sessions = await this.find(model.id, client);
             let old = sessions.length && sessions[0];
             if (!old)
-                return this._save(model, client);
+                return this.__save(model, client);
 
             if (old.updatedAt.isBefore(model.updatedAt))
-                return this._save(model, client);
+                return this.__save(model, client);
 
             return rollback(model.id);
         });
