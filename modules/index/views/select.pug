@@ -1,6 +1,7 @@
-h5.pt-5.pb-3.center #{i18n('choose_target_message')}
-.target-list
-    each target in targets
-        .target-item(data-id=target.id)
-            i.fa.fa-globe.target-pic
-            .target-name #{target.name}
+.page
+    .pt-5.pb-3.center #{i18n('target_message')}
+    .target-list
+        each target in targets
+            .target-item(data-id=target.id)
+                i.fa.fa-globe.target-pic
+                .target-name #{target.name}

@@ -68,8 +68,7 @@ class RegisterEvent {
             if (!session || !session.payload.started)
                 return;
 
-            browser.clear();
-            browser.device = session.payload.device;
+            browser.clear(session.payload.device);
 
             for (let [oldId, oldBrowser] of this._browsers) {
                 if (oldId !== id && oldBrowser.device === browser.device) {

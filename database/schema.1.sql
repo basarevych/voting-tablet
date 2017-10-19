@@ -21,8 +21,8 @@ CREATE TABLE voting_tablet_sessions (
 CREATE TABLE voting_tablet_users (
     id int(11) NOT NULL AUTO_INCREMENT,
     portal_id int(11) NOT NULL,
-    card_id text NOT NULL,
-    scanned_at timestamp NOT NULL,
+    card_id text NULL,
+    scanned_at timestamp NULL,
     registered_at timestamp NOT NULL,
     CONSTRAINT voting_tablet_users_pk PRIMARY KEY (id)
 );
@@ -43,12 +43,15 @@ CREATE TABLE voting_tablet_targets (
 
 CREATE TABLE voting_tablet_votes (
     id int(11) NOT NULL AUTO_INCREMENT,
-    user_id int(11) NOT NULL,
+    user_id int(11) NULL,
     portal_id int(11) NOT NULL,
     target_id int(11) NOT NULL,
     score int(11) NOT NULL,
     voted_at timestamp NOT NULL,
-    CONSTRAINT voting_tablet_votes_pk PRIMARY KEY (id)
+    CONSTRAINT voting_tablet_votes_pk PRIMARY KEY (id),
+    CONSTRAINT voting_tablet_votes_user_fk FOREIGN KEY(user_id)
+        REFERENCES voting_tablet_users(id)
+        ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 --

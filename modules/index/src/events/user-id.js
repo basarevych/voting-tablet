@@ -63,7 +63,7 @@ class UserIdEvent {
             if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!browser.device || !browser.cardId || browser.user)
+            if (!browser.device /* || !browser.cardId */)
                 return browser.socket.emit('reload');
 
             let userId = parseInt(message.id);

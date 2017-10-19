@@ -22,68 +22,72 @@
   width: 400px;
 }
 
-.user-list {
-  text-align: left;
-}
-.user-item {
-  .user-pic {
-    font-size: 36pt;
-    margin-right: 1em;
-    vertical-align: middle;
-  }
-  cursor: pointer;
-  display: block;
-  padding: 0.5em;
+.page {
   font-size: 16pt;
-}
+  text-align: center;
 
-.target-list {
-  display: flex;
+  .user-list {
+    text-align: left;
 
-  .target-item {
-    cursor: pointer;
-    display: inline;
-    padding: 0.5em;
-    font-size: 16pt;
-
-    .target-pic {
+    .user-item {
+      cursor: pointer;
       display: block;
-      width: 100px;
-      font-size: 50pt;
-      text-align: center;
-    }
-    .target-name {
-      display: block;
-      width: 100px;
-      text-align: center;
-    }
-  }
-}
+      padding: 0.5em;
 
-.score-list {
-  display: flex;
-
-  .score-item {
-    cursor: pointer;
-    display: inline;
-    padding: 0.5em;
-    font-size: 16pt;
-
-    .score-pic {
-      display: block;
-      width: 100px;
-      font-size: 50pt;
-      text-align: center;
-
-      &.selected {
-        color: #ffff00 !important;
+      .user-pic {
+        font-size: 36pt;
+        margin-right: 1em;
+        vertical-align: middle;
       }
     }
+  }
 
-    .score-name {
-      display: block;
-      width: 100px;
-      text-align: center;
+  .target-list {
+    display: flex;
+
+    .target-item {
+      cursor: pointer;
+      display: inline;
+      padding: 0.5em;
+
+      .target-pic {
+        display: block;
+        width: 100px;
+        font-size: 50pt;
+        text-align: center;
+      }
+      .target-name {
+        display: block;
+        width: 100px;
+        text-align: center;
+      }
+    }
+  }
+
+  .score-list {
+    display: flex;
+
+    .score-item {
+      cursor: pointer;
+      display: inline;
+      padding: 0.5em;
+
+      .score-pic {
+        display: block;
+        width: 100px;
+        font-size: 50pt;
+        text-align: center;
+
+        &.selected {
+          color: #ffff00 !important;
+        }
+      }
+
+      .score-name {
+        display: block;
+        width: 100px;
+        text-align: center;
+      }
     }
   }
 }

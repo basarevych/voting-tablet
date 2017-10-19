@@ -20,7 +20,7 @@ export function installVote(el) {
             timer = null;
         }
         socket.io.emit('score', { score });
-        transition('/thanks');
+        transition('/thanks', 5);
     };
 
     el.find('.score-item').click(function () {

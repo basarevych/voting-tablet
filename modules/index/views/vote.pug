@@ -1,15 +1,16 @@
-h5.pt-5.pb-3.center #{i18n('choose_score_message')}
-.score-list
-    .score-item(data-score=1)
-        i.fa.fa-star.score-pic
-        .score-name #{i18n('score_1')}
-    .score-item(data-score=2)
-        i.fa.fa-star.score-pic
-        .score-name #{i18n('score_2')}
-    .score-item(data-score=3)
-        i.fa.fa-star.score-pic
-        .score-name #{i18n('score_3')}
-    .score-item(data-score=4)
-        i.fa.fa-star.score-pic
-        .score-name #{i18n('score_4')}
-button.btn.btn-secondary.btn-wide.btn-ok.mt-3.center(type="button") #{i18n('vote_ok_button')}
+.page
+    .pt-5.pb-3 #{i18n('score_message')}
+    .score-list
+        .score-item(data-score=1)
+            i.fa.fa-star.score-pic
+            .score-name #{i18n('score_1')}
+        .score-item(data-score=2)
+            i.fa.fa-star.score-pic
+            .score-name #{i18n('score_2')}
+        .score-item(data-score=3)
+            i.fa.fa-star.score-pic
+            .score-name #{i18n('score_3')}
+        .score-item(data-score=4)
+            i.fa.fa-star.score-pic
+            .score-name #{i18n('score_4')}
+    button.btn.btn-secondary.btn-wide.btn-ok.mt-3(type="button") #{i18n('vote_ok_button')}

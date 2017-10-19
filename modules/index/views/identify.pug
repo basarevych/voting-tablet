@@ -1,6 +1,7 @@
-h5.pt-5.pb-3 #{i18n('choose_yourself_message')}
-.user-list
-    each user in users
-        .user-item(data-id=user.id)
-            i.fa.fa-user.user-pic
-            span #{user.lastname} #{user.name}, #{user.title}
+.page
+    .pt-5.pb-3 #{i18n('identify_message')}
+    .user-list
+        each user in users
+            .user-item(data-id=user.id)
+                i.fa.fa-user.user-pic
+                span #{user.lastname} #{user.name}, #{user.title}

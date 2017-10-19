@@ -19,11 +19,9 @@ class Browser {
     /**
      * Socket setter
      * @param {object} socket
-     * @return {object}
      */
     set socket(socket) {
         this._socket = socket;
-        return this._socket;
     }
 
     /**
@@ -37,11 +35,9 @@ class Browser {
     /**
      * Device setter
      * @param {number|null} device
-     * @return {number|null}
      */
     set device(device) {
         this._device = device;
-        return this._device;
     }
 
     /**
@@ -55,11 +51,9 @@ class Browser {
     /**
      * Card ID setter
      * @param {string|null} cardId
-     * @return {string|null}
      */
     set cardId(cardId) {
         this._cardId = cardId;
-        return this._cardId;
     }
 
     /**
@@ -73,11 +67,9 @@ class Browser {
     /**
      * Card ID timestamp setter
      * @param {object|null} cardTimestamp
-     * @return {object|null}
      */
     set cardTimestamp(cardTimestamp) {
         this._cardTimestamp = cardTimestamp;
-        return this._cardTimestamp;
     }
 
     /**
@@ -91,11 +83,9 @@ class Browser {
     /**
      * User setter
      * @param {object|null} user
-     * @return {object|null}
      */
     set user(user) {
         this._user = user;
-        return this._user;
     }
 
     /**
@@ -109,11 +99,9 @@ class Browser {
     /**
      * Target setter
      * @param {object|null} target
-     * @return {object|null}
      */
     set target(target) {
         this._target = target;
-        return this._target;
     }
 
     /**
@@ -126,9 +114,10 @@ class Browser {
 
     /**
      * Clear all the data
+     * @param {number} [newDevice]
      */
-    clear() {
-        this.device = null;
+    clear(newDevice) {
+        this.device = newDevice || null;
         this.cardId = null;
         this.cardTimestamp = null;
         this.user = null;

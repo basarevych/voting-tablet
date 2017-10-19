@@ -6,6 +6,7 @@
 
 import { socket } from 'socket';
 import { installAuth } from 'auth';
+import { installStart } from 'start';
 import { installIdentify } from 'identify';
 import { installSelect } from 'select';
 import { installVote } from 'vote';
@@ -23,36 +24,31 @@ function checkConnected() {
     }
 }
 
-function install(el) {
-    installAuth(el);
-    installIdentify(el);
-    installSelect(el);
-    installVote(el);
-    installThanks(el);
+export let lastTransition = { url: null, timestamp: 0, timer: null };
+
+export function transition(url, timeout = 15) {
     checkConnected();
 
-    let height = el.height();
-    if ($(window).height() < height) {
-        $('html').css('height', height);
-        $('body').css('height', height);
-    } else {
-        $('html').css('height', '100%');
-        $('body').css('height', '100%');
+    if (lastTransition.timer) {
+        clearTimeout(lastTransition.timer);
+        lastTransition.timer = null;
     }
-}
-
-export let lastTransition = { timestamp: 0 };
-
-export function transition(url) {
-    lastTransition.timestamp = Date.now();
-    checkConnected();
 
     $.get('/authorized', auth => {
         if (!auth.success) {
             socket.registered = false;
             if (url !== '/start')
                 return transition('/start');
+        } else if (socket.connected && !socket.registered) {
+            socket.registered = true;
+            socket.io.emit('register', { server: auth.server, token: auth.token });
         }
+
+        if (lastTransition.url === url)
+            return;
+
+        lastTransition.url = url;
+        lastTransition.timestamp = Date.now();
 
         let prev = $('#page' + (curPage === 1 ? 2 : 1));
 
@@ -64,10 +60,22 @@ export function transition(url) {
             prev.show();
             curPage = (curPage === 1 ? 2 : 1);
 
-            if (auth.success && socket.connected && !socket.registered) {
-                socket.registered = true;
-                socket.io.emit('register', { server: auth.server, token: auth.token });
+            if (url === '/start') {
+                socket.io.emit('reset');
+            } else {
+                let savedTransition = lastTransition.timestamp;
+                lastTransition.timer = setTimeout(
+                    () => {
+                        if (lastTransition.timestamp === savedTransition &&
+                            lastTransition.url !== '/start') {
+                            transition('/start');
+                        }
+                    },
+                    timeout * 1000
+                );
             }
+
+            checkConnected();
         };
 
         $.ajax(
@@ -82,7 +90,23 @@ export function transition(url) {
                 },
                 success: data => {
                     prev.html(data);
-                    install(prev);
+
+                    installAuth(prev);
+                    installStart(prev);
+                    installIdentify(prev);
+                    installSelect(prev);
+                    installVote(prev);
+                    installThanks(prev);
+
+                    let height = prev.height();
+                    if ($(window).height() < height) {
+                        $('html').css('height', height);
+                        $('body').css('height', height);
+                    } else {
+                        $('html').css('height', '100%');
+                        $('body').css('height', '100%');
+                    }
+
                     done();
                 },
             }
