@@ -133,9 +133,9 @@
       }
     },
     "arpen-express": {
-      "version": "0.0.10",
-      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.10.tgz",
-      "integrity": "sha512-s6jwQ2WYvTn91dhQdGjKbO0q78mvKQ39GaG7bCrMkLETCIi9jhhQ/jVVGIeyQWNbNKTGkzPWUv1+e7jo+tzuoA==",
+      "version": "0.0.11",
+      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.11.tgz",
+      "integrity": "sha512-9BPcOsSMMmELTxZ5HAr+Mgn7fDFbpByNDSNp7/1cuUKzXyCWH6j2isvoF9hccjD/IgV2L9izVcpFpc34qOBHew==",
       "requires": {
         "body-parser": "1.18.2",
         "cookie-parser": "1.4.3",

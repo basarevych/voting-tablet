@@ -33,7 +33,7 @@ export let socket = {
         transition('/start');
     },
     onReload: () => {
-        window.location.reload();
+        transition('/start');
     },
     onIdentify: () => {
         transition('/identify');

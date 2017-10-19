@@ -28,7 +28,7 @@ function signIn() {
             success: data => {
                 Form.reset(signInWrapper);
                 if (data.success) {
-                    setTimeout(() => { transition('/start'); }, 1000);
+                    transition('/start');
                 } else {
                     Form.unlock(signInWrapper);
                     if (signInForm.timestamp <= timestamp) {
