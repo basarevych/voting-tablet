@@ -1,11 +1,11 @@
 {
   "name": "voting-tablet",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "argv": "~0.0.2",
-    "arpen": "~0.2.22",
-    "arpen-express": "~0.0.8",
+    "arpen": "~0.2.24",
+    "arpen-express": "~0.0.10",
     "arpen-i18n": "~0.0.9",
     "daemon": "~1.1.0",
     "emailjs": "~1.0.12",

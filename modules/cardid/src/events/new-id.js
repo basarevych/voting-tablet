@@ -13,20 +13,15 @@ class NewId {
      * @param {App} app                             The application
      * @param {object} config                       Configuration
      * @param {Logger} logger                       Logger service
+     * @param {Browsers} browsers                   Browsers service
      * @param {UserRepository} userRepo             User repository
-     * @param {Map} sockets                         Web sockets
      */
-    constructor(app, config, logger, userRepo, sockets) {
+    constructor(app, config, logger, browsers, userRepo) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._browsers = browsers;
         this._userRepo = userRepo;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
     }
 
     /**
@@ -46,8 +41,8 @@ class NewId {
             'app',
             'config',
             'logger',
+            'browsers',
             'repositories.user',
-            'sockets?'
         ];
     }
 
@@ -68,21 +63,17 @@ class NewId {
         try {
             this._logger.debug('new-id', `Got NEW ID on ${device}: ${message}`);
 
-            for (let socket of this._sockets.values()) {
-                if (socket.device === device) {
+            for (let browser of this._browsers.values()) {
+                if (browser.device === device) {
                     this._logger.debug('new-id', `Found device`);
-                    socket.cardId = message.trim();
-                    socket.cardTimestamp = Date.now();
+                    browser.clear();
+                    browser.device = device;
+                    browser.cardId = message.trim();
+                    browser.cardTimestamp = Date.now();
 
-                    let users = await this._userRepo.findByCardId(socket.cardId);
-                    socket.user = users.length && users[0];
-                    delete socket.targetId;
-
-                    if (socket.user)
-                        socket.socket.emit('select');
-                    else
-                        socket.socket.emit('identify');
-
+                    let users = await this._userRepo.findByCardId(browser.cardId);
+                    browser.user = (users.length && users[0]) || null;
+                    browser.socket.emit(browser.user ? 'select' : 'identify');
                     break;
                 }
             }

@@ -12,17 +12,14 @@ class TargetIdEvent {
      * Create service
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
-     * @param {Map} sockets                     Web sockets
+     * @param {Browsers} browsers               Browsers service
+     * @param {TargetRepository} targetRepo     Target repository
      */
-    constructor(app, logger, sockets) {
+    constructor(app, logger, browsers, targetRepo) {
         this._app = app;
         this._logger = logger;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
+        this._browsers = browsers;
+        this._targetRepo = targetRepo;
     }
 
     /**
@@ -41,7 +38,8 @@ class TargetIdEvent {
         return [
             'app',
             'logger',
-            'sockets?',
+            'browsers',
+            'repositories.target',
         ];
     }
 
@@ -68,12 +66,12 @@ class TargetIdEvent {
      */
     async handle(id, message) {
         try {
-            let socket = this._sockets.get(id);
-            if (!socket || typeof message !== 'object' || message === null)
+            let browser = this._browsers.get(id);
+            if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!socket.device || !socket.user || socket.targetId)
-                return socket.socket.emit('reload');
+            if (!browser.device || !browser.cardId || !browser.user || browser.target)
+                return browser.socket.emit('reload');
 
             let targetId = parseInt(message.id);
             if (!isFinite(targetId))
@@ -81,8 +79,10 @@ class TargetIdEvent {
 
             this._logger.debug('target-id', `Got TARGET ID: ${targetId}`);
 
-            socket.targetId = targetId;
-            socket.socket.emit('vote');
+            let targets = await this._targetRepo.find(targetId);
+            browser.target = (targets.length && targets[0]) || null;
+
+            browser.socket.emit('vote');
         } catch (error) {
             this._logger.error(new NError(error, 'TargetIdEvent.handle()'));
         }

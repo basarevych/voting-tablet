@@ -1,6 +1,6 @@
 {
   "name": "voting-tablet",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -117,9 +117,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.22",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.22.tgz",
-      "integrity": "sha512-1Ei6o3NOzNoC1NI1rShcr8uNhi9T7OvFAd4wjjFuBh2suAVxrarm7PkFHveDSV9oTQbTtpsOHSAPaEYMGFbaJg==",
+      "version": "0.2.24",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.24.tgz",
+      "integrity": "sha512-tMN35GqYFaVdlz+rjskYwnA5/fqt7y8CiRdB0lBHkMJpdPZwFcVFSlvjv0P9oeMRC6ZKRcKj4Y/7RVSdN5YHhw==",
       "requires": {
         "debug": "3.1.0",
         "fs-ext": "1.0.0",
@@ -133,9 +133,9 @@
       }
     },
     "arpen-express": {
-      "version": "0.0.8",
-      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.8.tgz",
-      "integrity": "sha512-JIyREWtpICkCod7Imo9NkoDBpxtWra46aVYQ70fdKaM6oRyYOJ2hziE4I1If7anUxvKZHRWWIEBMkxuGMPkrug==",
+      "version": "0.0.10",
+      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.10.tgz",
+      "integrity": "sha512-s6jwQ2WYvTn91dhQdGjKbO0q78mvKQ39GaG7bCrMkLETCIi9jhhQ/jVVGIeyQWNbNKTGkzPWUv1+e7jo+tzuoA==",
       "requires": {
         "body-parser": "1.18.2",
         "cookie-parser": "1.4.3",

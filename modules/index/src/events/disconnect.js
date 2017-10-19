@@ -12,17 +12,12 @@ class DisconnectEvent {
      * Create service
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
-     * @param {Map} sockets                     Web sockets
+     * @param {Browsers} browsers               Browsers service
      */
-    constructor(app, logger, sockets) {
+    constructor(app, logger, browsers) {
         this._app = app;
         this._logger = logger;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
+        this._browsers = browsers;
     }
 
     /**
@@ -38,7 +33,7 @@ class DisconnectEvent {
      * @type {string[]}
      */
     static get requires() {
-        return ['app', 'logger', 'sockets?'];
+        return ['app', 'logger', 'browsers'];
     }
 
     /**
@@ -64,7 +59,7 @@ class DisconnectEvent {
     async handle(id) {
         try {
             this._logger.debug('connection', `Disconnected ${id}`);
-            this._sockets.delete(id);
+            this._browsers.remove(id);
         } catch (error) {
             this._logger.error(new NError(error, 'DisconnectEvent.handle()'));
         }

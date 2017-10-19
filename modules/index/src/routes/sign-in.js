@@ -15,10 +15,10 @@ class SignInRoute {
      * @param {object} config                   Configuration
      * @param {SignInForm} signInForm           SignIn form
      * @param {Session} session                 Session service
+     * @param {Browsers} browsers               Browsers service
      * @param {SessionRepository} sessionRepo   Session repository
-     * @param {Map} sockets                     Web sockets
      */
-    constructor(app, config, signInForm, session, sessionRepo, sockets) {
+    constructor(app, config, signInForm, session, browsers, sessionRepo) {
         this.priority = 0;
         this.router = express.Router();
         this.router.post('/sign-in', this.postSignIn.bind(this));
@@ -28,13 +28,8 @@ class SignInRoute {
         this._config = config;
         this._signInForm = signInForm;
         this._session = session;
+        this._browsers = browsers;
         this._sessionRepo = sessionRepo;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
     }
 
     /**
@@ -55,8 +50,8 @@ class SignInRoute {
             'config',
             'forms.signIn',
             'session',
+            'browsers',
             'repositories.session',
-            'sockets?',
         ];
     }
 
@@ -87,10 +82,10 @@ class SignInRoute {
             for (let old of await this._sessionRepo.findByDevice(req.session.device))
                 await this._session.destroyAll(old);
 
-            for (let socket of this._sockets.values()) {
-                if (socket.device === req.session.device) {
-                    delete socket.device;
-                    socket.socket.emit('reload');
+            for (let browser of this._browsers.values()) {
+                if (browser.device === req.session.device) {
+                    browser.clear();
+                    browser.socket.emit('reload');
                 }
             }
 

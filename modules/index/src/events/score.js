@@ -13,21 +13,16 @@ class ScoreEvent {
      * Create service
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
+     * @param {Browsers} browsers               Browsers service
      * @param {TargetRepository} targetRepo     Target repository
      * @param {VoteRepository} voteRepo         Vote repository
-     * @param {Map} sockets                     Web sockets
      */
-    constructor(app, logger, targetRepo, voteRepo, sockets) {
+    constructor(app, logger, browsers, targetRepo, voteRepo) {
         this._app = app;
         this._logger = logger;
+        this._browsers = browsers;
         this._targetRepo = targetRepo;
         this._voteRepo = voteRepo;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
     }
 
     /**
@@ -46,9 +41,9 @@ class ScoreEvent {
         return [
             'app',
             'logger',
+            'browsers',
             'repositories.target',
             'repositories.vote',
-            'sockets?',
         ];
     }
 
@@ -75,12 +70,12 @@ class ScoreEvent {
      */
     async handle(id, message) {
         try {
-            let socket = this._sockets.get(id);
-            if (!socket || typeof message !== 'object' || message === null)
+            let browser = this._browsers.get(id);
+            if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!socket.device || !socket.user || !socket.targetId)
-                return socket.socket.emit('reload');
+            if (!browser.device || !browser.cardId || !browser.user || !browser.target)
+                return browser.socket.emit('reload');
 
             let score = parseInt(message.score);
             if (!isFinite(score))
@@ -89,14 +84,13 @@ class ScoreEvent {
             this._logger.debug('score', `Got SCORE: ${score}`);
 
             let vote = this._voteRepo.getModel();
-            vote.userId = socket.user.id;
-            vote.portalId = socket.user.portalId;
-            vote.targetId = socket.targetId;
+            vote.userId = browser.user.id;
+            vote.portalId = browser.user.portalId;
+            vote.targetId = browser.target.id;
             vote.score = score;
             vote.votedAt = moment();
 
-            delete socket.user;
-            delete socket.targetId;
+            browser.clear();
 
             await this._voteRepo.save(vote);
         } catch (error) {

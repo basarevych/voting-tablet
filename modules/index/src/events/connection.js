@@ -12,17 +12,12 @@ class ConnectionEvent {
      * Create service
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
-     * @param {Map} sockets                     Web sockets
+     * @param {Browsers} browsers               Browsers service
      */
-    constructor(app, logger, sockets) {
+    constructor(app, logger, browsers) {
         this._app = app;
         this._logger = logger;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
+        this._browsers = browsers;
     }
 
     /**
@@ -38,7 +33,7 @@ class ConnectionEvent {
      * @type {string[]}
      */
     static get requires() {
-        return ['app', 'logger', 'sockets?'];
+        return ['app', 'logger', 'browsers'];
     }
 
     /**
@@ -65,7 +60,7 @@ class ConnectionEvent {
     async handle(id, socket) {
         try {
             this._logger.debug('connection', `Connected ${id}`);
-            this._sockets.set(id, { socket });
+            this._browsers.add(id, socket);
         } catch (error) {
             this._logger.error(new NError(error, 'ConnectionEvent.handle()'));
         }

@@ -13,19 +13,14 @@ class UserIdEvent {
      * Create service
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
+     * @param {Browsers} browsers               Browsers service
      * @param {UserRepository} userRepo         User repository
-     * @param {Map} sockets                     Web sockets
      */
-    constructor(app, logger, userRepo, sockets) {
+    constructor(app, logger, browsers, userRepo) {
         this._app = app;
         this._logger = logger;
+        this._browsers = browsers;
         this._userRepo = userRepo;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
     }
 
     /**
@@ -44,8 +39,8 @@ class UserIdEvent {
         return [
             'app',
             'logger',
+            'browsers',
             'repositories.user',
-            'sockets?',
         ];
     }
 
@@ -72,12 +67,12 @@ class UserIdEvent {
      */
     async handle(id, message) {
         try {
-            let socket = this._sockets.get(id);
-            if (!socket || typeof message !== 'object' || message === null)
+            let browser = this._browsers.get(id);
+            if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!socket.device || socket.user)
-                return socket.socket.emit('reload');
+            if (!browser.device || !browser.cardId || browser.user)
+                return browser.socket.emit('reload');
 
             let userId = parseInt(message.id);
             if (!isFinite(userId))
@@ -87,13 +82,13 @@ class UserIdEvent {
 
             let user = this._userRepo.getModel();
             user.portalId = userId;
-            user.cardId = socket.cardId;
-            user.scannedAt = socket.cardTimestamp;
+            user.cardId = browser.cardId;
+            user.scannedAt = browser.cardTimestamp;
             user.registeredAt = moment();
             await this._userRepo.save(user);
 
-            socket.user = user;
-            socket.socket.emit('select');
+            browser.user = user;
+            browser.socket.emit('select');
         } catch (error) {
             this._logger.error(new NError(error, 'UserIdEvent.handle()'));
         }

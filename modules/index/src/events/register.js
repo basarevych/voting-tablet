@@ -13,18 +13,13 @@ class RegisterEvent {
      * @param {App} app                         The application
      * @param {Logger} logger                   Logger service
      * @param {Session} session                 Session service
-     * @param {Map} sockets                     Web sockets
+     * @param {Browsers} browsers               Browsers service
      */
-    constructor(app, logger, session, sockets) {
+    constructor(app, logger, session, browsers) {
         this._app = app;
         this._logger = logger;
         this._session = session;
-
-        if (!sockets) {
-            sockets = new Map();
-            this._app.registerInstance(sockets, 'sockets');
-        }
-        this._sockets = sockets;
+        this._browsers = browsers;
     }
 
     /**
@@ -44,7 +39,7 @@ class RegisterEvent {
             'app',
             'logger',
             'session',
-            'sockets?',
+            'browsers',
         ];
     }
 
@@ -71,8 +66,8 @@ class RegisterEvent {
      */
     async handle(id, message) {
         try {
-            let socket = this._sockets.get(id);
-            if (!socket || typeof message !== 'object' || message === null)
+            let browser = this._browsers.get(id);
+            if (!browser || typeof message !== 'object' || message === null)
                 return;
 
             this._logger.debug('register', `Got REGISTER`);
@@ -81,12 +76,13 @@ class RegisterEvent {
             if (!session || !session.payload.started)
                 return;
 
-            socket.device = session.payload.device;
+            browser.clear();
+            browser.device = session.payload.device;
 
-            for (let [oldId, oldSocket] of this._sockets) {
-                if (oldId !== id && oldSocket.device === socket.device) {
-                    delete oldSocket.device;
-                    oldSocket.socket.emit('reload');
+            for (let [oldId, oldBrowser] of this._browsers) {
+                if (oldId !== id && oldBrowser.device === browser.device) {
+                    oldBrowser.clear();
+                    oldBrowser.socket.emit('reload');
                 }
             }
         } catch (error) {

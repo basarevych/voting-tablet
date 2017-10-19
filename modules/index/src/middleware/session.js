@@ -62,8 +62,7 @@ class Session extends BaseService {
                     session.user = req.user;
 
                     try {
-                        await this._session.update(server.name, session, req);
-                        if (this._session.isValid(server.name, session) && bridge.tokenVar) {
+                        if (await this._session.update(server.name, session, req) && bridge.tokenVar) {
                             res.cookie(bridge.tokenVar, token, {
                                 maxAge: 365 * 24 * 60 * 60 * 1000,
                                 path: '/',
