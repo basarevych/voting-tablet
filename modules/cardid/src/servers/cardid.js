@@ -225,7 +225,7 @@ class Cardid extends EventEmitter {
             this._logger.debug('daemon', `Client disconnected ${id}`);
             this.emit('new_id', device, client.data);
             client.socket.destroy();
-            this.clients.delete(id);
+            server.clients.delete(id);
         }
     }
 }

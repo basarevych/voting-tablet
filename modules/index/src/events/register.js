@@ -44,14 +44,6 @@ class RegisterEvent {
     }
 
     /**
-     * Event type
-     * @type {string}
-     */
-    get type() {
-        return 'socket';
-    }
-
-    /**
      * Event name
      * @type {string}
      */

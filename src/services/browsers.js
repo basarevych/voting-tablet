@@ -13,7 +13,7 @@ class Browser {
      */
     constructor(socket) {
         this.socket = socket;
-        clear();
+        this.clear();
     }
 
     /**

@@ -58,11 +58,8 @@ class Index {
         if (server.constructor.provides !== 'servers.express')
             return;
 
-        for (let event of this.events.values()) {
-            if (event.type === 'socket')
-                server.socketEvents.push(event.name);
-            server.on(event.type + '_' + event.name, event.handle.bind(event));
-        }
+        for (let event of this.events.values())
+            server.on('socket_' + event.name, event.handle.bind(event));
     }
 
     /**

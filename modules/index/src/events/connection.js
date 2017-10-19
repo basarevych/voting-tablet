@@ -37,14 +37,6 @@ class ConnectionEvent {
     }
 
     /**
-     * Event type
-     * @type {string}
-     */
-    get type() {
-        return 'io';
-    }
-
-    /**
      * Event name
      * @type {string}
      */
