@@ -23,7 +23,7 @@
 }
 
 .page {
-  font-size: 16pt;
+  font-size: 20pt;
   text-align: center;
 
   .user-list {
@@ -43,51 +43,77 @@
   }
 
   .target-list {
-    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height:100%;
+    width:100%;
+    border-spacing: 1em;
+    border-collapse: separate;
 
     .target-item {
+      height: 50%;
+      width: 33%;
       cursor: pointer;
-      display: inline;
-      padding: 0.5em;
-
-      .target-pic {
-        display: block;
-        width: 100px;
-        font-size: 50pt;
-        text-align: center;
-      }
-      .target-name {
-        display: block;
-        width: 100px;
-        text-align: center;
-      }
+      text-align: center;
+      vertical-align: middle;
     }
   }
 
   .score-list {
-    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height:100%;
+    width:100%;
+    border-spacing: 1em;
+    border-collapse: separate;
 
     .score-item {
+      height: 33%;
+      width: 25%;
       cursor: pointer;
-      display: inline;
-      padding: 0.5em;
+      text-align: center;
 
       .score-pic {
-        display: block;
-        width: 100px;
-        font-size: 50pt;
-        text-align: center;
+        font-size: 72pt;
+        color: #000000;
 
         &.selected {
-          color: #ffff00 !important;
+          color: #ffffff;
         }
       }
-
-      .score-name {
-        display: block;
-        width: 100px;
-        text-align: center;
-      }
+    }
+    .score-star {
+      vertical-align: bottom;
+      padding-bottom: 1em;
+    }
+    .score-text {
+      vertical-align: top;
+      padding-top: 1em;
     }
   }
+}
+
+.colors-hr {
+  background-color: #fd7e14;
+}
+.colors-pr {
+  background-color: #007bff;
+}
+.colors-it {
+  background-color: #8A2BE2;
+}
+.colors-fin {
+  background-color: #dc3545;
+}
+.colors-recept {
+  background-color: #ffc107;
+}
+.colors-office {
+  background-color: #28a745;
 }

@@ -2,7 +2,6 @@
  * Reset event
  * @module index/events/reset
  */
-const moment = require('moment-timezone');
 const NError = require('nerror');
 
 /**

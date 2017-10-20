@@ -24,27 +24,43 @@ function checkConnected() {
     }
 }
 
-export let lastTransition = { url: null, timestamp: 0, timer: null };
+export let lastTransition = {
+    url: null,
+    timestamp: 0,
+    timer: null,
+    code: null,
+    startTimer: function (timeout = 15) {
+        this.savedTransition = lastTransition.timestamp;
+        if (this.timer)
+            clearTimeout(this.timer);
 
-export function transition(url, timeout = 15) {
+        this.timer = setTimeout(
+            () => {
+                if (this.timestamp === this.savedTransition && this.url !== '/start')
+                    transition('/start');
+            },
+            timeout * 1000
+        );
+    }
+};
+
+export function transition(url, timeout) {
     checkConnected();
 
-    if (lastTransition.timer) {
-        clearTimeout(lastTransition.timer);
-        lastTransition.timer = null;
-    }
-
     $.get('/authorized', auth => {
+        let forceTransition = false;
         if (!auth.success) {
+            forceTransition = true;
             socket.registered = false;
             if (url !== '/start')
                 return transition('/start');
         } else if (socket.connected && !socket.registered) {
+            forceTransition = true;
             socket.registered = true;
             socket.io.emit('register', { server: auth.server, token: auth.token });
         }
 
-        if (lastTransition.url === url)
+        if (!forceTransition && lastTransition.url === url)
             return;
 
         lastTransition.url = url;
@@ -57,23 +73,25 @@ export function transition(url, timeout = 15) {
             if (++counter < 2)
                 return;
 
+            if (url === '/start')
+                $('body').removeAttr('class');
+
             prev.show();
             curPage = (curPage === 1 ? 2 : 1);
 
-            if (url === '/start') {
-                socket.io.emit('reset');
+            let height = prev.height();
+            if ($(window).height() < height) {
+                $('html').css('height', height);
+                $('body').css('height', height);
             } else {
-                let savedTransition = lastTransition.timestamp;
-                lastTransition.timer = setTimeout(
-                    () => {
-                        if (lastTransition.timestamp === savedTransition &&
-                            lastTransition.url !== '/start') {
-                            transition('/start');
-                        }
-                    },
-                    timeout * 1000
-                );
+                $('html').css('height', '100%');
+                $('body').css('height', '100%');
             }
+
+            if (url === '/start')
+                socket.io.emit('reset');
+            else
+                lastTransition.startTimer(timeout);
 
             checkConnected();
         };
@@ -97,15 +115,6 @@ export function transition(url, timeout = 15) {
                     installSelect(prev);
                     installVote(prev);
                     installThanks(prev);
-
-                    let height = prev.height();
-                    if ($(window).height() < height) {
-                        $('html').css('height', height);
-                        $('body').css('height', height);
-                    } else {
-                        $('html').css('height', '100%');
-                        $('body').css('height', '100%');
-                    }
 
                     done();
                 },

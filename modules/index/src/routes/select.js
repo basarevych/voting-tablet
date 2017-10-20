@@ -54,7 +54,19 @@ class SelectRoute {
 
         let targets = await this._targetRepo.findAll();
 
-        res.render('select', { targets });
+        let result = [];
+        let i = 0;
+        let row = [];
+        for (let target of targets) {
+            row.push(target);
+            if (++i >= 3) {
+                result.push(row);
+                row = [];
+                i = 0;
+            }
+        }
+
+        res.render('select', { targets: result });
     }
 }
 

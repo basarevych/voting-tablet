@@ -5,10 +5,13 @@
 'use strict';
 
 import { socket } from 'socket';
-import { transition } from 'transition';
+import { transition, lastTransition } from 'transition';
 
 let score, timer, counter;
 export function installVote(el) {
+    if (el.find('.score-list').length && lastTransition.code)
+        $('body').addClass('colors-' + lastTransition.code);
+
     if (timer) {
         clearInterval(timer);
         timer = null;
@@ -40,6 +43,7 @@ export function installVote(el) {
             },
             1000
         );
+        lastTransition.startTimer();
 
         el.find('.score-item').each(function (index) {
             if (index + 1 <= score)

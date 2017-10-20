@@ -1,16 +1,21 @@
 .page
-    .pt-5.pb-3 #{i18n('score_message')}
-    .score-list
-        .score-item(data-score=1)
-            i.fa.fa-star.score-pic
-            .score-name #{i18n('score_1')}
-        .score-item(data-score=2)
-            i.fa.fa-star.score-pic
-            .score-name #{i18n('score_2')}
-        .score-item(data-score=3)
-            i.fa.fa-star.score-pic
-            .score-name #{i18n('score_3')}
-        .score-item(data-score=4)
-            i.fa.fa-star.score-pic
-            .score-name #{i18n('score_4')}
-    button.btn.btn-secondary.btn-wide.btn-ok.mt-3(type="button") #{i18n('vote_ok_button')}
+    table.score-list
+        tr
+            td(colspan="4") #{i18n('score_message')}
+        tr
+            td.score-item.score-star(data-score=1)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=2)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=3)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=4)
+                i.fa.fa-star.score-pic
+        tr
+            td.score-item.score-text(data-score=1) #{i18n('score_1')}
+            td.score-item.score-text(data-score=2) #{i18n('score_2')}
+            td.score-item.score-text(data-score=3) #{i18n('score_3')}
+            td.score-item.score-text(data-score=4) #{i18n('score_4')}
+        tr
+            td(colspan="4")
+                button.btn.btn-secondary.btn-wide.btn-ok.mt-3(type="button") #{i18n('vote_ok_button')}

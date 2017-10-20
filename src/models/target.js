@@ -16,6 +16,7 @@ class TargetModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
+        this.code = undefined;
         this.name = undefined;
     }
 
@@ -25,6 +26,22 @@ class TargetModel extends BaseModel {
      */
     static get provides() {
         return 'models.target';
+    }
+
+    /**
+     * Code setter
+     * @type {undefined|string}
+     */
+    set code(code) {
+        return this._setField('code', code);
+    }
+
+    /**
+     * Code getter
+     * @type {undefined|string}
+     */
+    get code() {
+        return this._getField('code');
     }
 
     /**

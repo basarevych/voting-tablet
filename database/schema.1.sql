@@ -33,6 +33,7 @@ CREATE TABLE voting_tablet_users (
 
 CREATE TABLE voting_tablet_targets (
     id int(11) NOT NULL AUTO_INCREMENT,
+    code varchar(255) NOT NULL,
     name varchar(255) NOT NULL,
     CONSTRAINT voting_tablet_targets_pk PRIMARY KEY (id)
 );
@@ -51,12 +52,20 @@ CREATE TABLE voting_tablet_votes (
     CONSTRAINT voting_tablet_votes_pk PRIMARY KEY (id),
     CONSTRAINT voting_tablet_votes_user_fk FOREIGN KEY(user_id)
         REFERENCES voting_tablet_users(id)
-        ON DELETE SET NULL ON UPDATE CASCADE
+        ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT voting_tablet_votes_target_fk FOREIGN KEY(target_id)
+        REFERENCES voting_tablet_targets(id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --
 -- Data
 --
 
-INSERT INTO voting_tablet_targets (name)
-     VALUES ('HR'), ('PR'), ('IT'), ('Financial'), ('Reception'), ('Office manager');
+INSERT INTO voting_tablet_targets (code, name)
+     VALUES ('hr', 'HR'),
+            ('pr', 'PR'),
+            ('it', 'IT'),
+            ('fin', 'Financial'),
+            ('recept', 'Reception'),
+            ('office', 'Office manager');
