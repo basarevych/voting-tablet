@@ -17,7 +17,7 @@ export function installStart() {
         $('body').on('click', () => {
             if (lastTransition.timestamp === savedTransition &&
                 lastTransition.url === '/start' && socket.registered)
-                transition('/identify');
+                transition('/select');
         });
     }
 }

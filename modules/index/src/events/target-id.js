@@ -62,7 +62,7 @@ class TargetIdEvent {
             if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!browser.device /* || !browser.cardId */ || !browser.user)
+            if (!browser.device /* || !browser.cardId || !browser.user */)
                 return browser.socket.emit('reload');
 
             let targetId = parseInt(message.id);

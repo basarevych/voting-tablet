@@ -29,7 +29,7 @@ export let lastTransition = {
     timestamp: 0,
     timer: null,
     code: null,
-    startTimer: function (timeout = 15) {
+    startTimer: function (timeout = 15, url = '/start') {
         this.savedTransition = lastTransition.timestamp;
         if (this.timer)
             clearTimeout(this.timer);
@@ -37,14 +37,14 @@ export let lastTransition = {
         this.timer = setTimeout(
             () => {
                 if (this.timestamp === this.savedTransition && this.url !== '/start')
-                    transition('/start');
+                    transition(url);
             },
             timeout * 1000
         );
     }
 };
 
-export function transition(url, timeout) {
+export function transition(url, timeoutSec, timeoutUrl) {
     checkConnected();
 
     $.get('/authorized', auth => {
@@ -73,8 +73,13 @@ export function transition(url, timeout) {
             if (++counter < 2)
                 return;
 
-            if (url === '/start')
-                $('body').removeAttr('class');
+            $('body').removeAttr('class');
+            installAuth(prev);
+            installStart(prev);
+            installIdentify(prev);
+            installSelect(prev);
+            installVote(prev);
+            installThanks(prev);
 
             prev.show();
             curPage = (curPage === 1 ? 2 : 1);
@@ -91,7 +96,7 @@ export function transition(url, timeout) {
             if (url === '/start')
                 socket.io.emit('reset');
             else
-                lastTransition.startTimer(timeout);
+                lastTransition.startTimer(timeoutSec, timeoutUrl);
 
             checkConnected();
         };
@@ -108,14 +113,6 @@ export function transition(url, timeout) {
                 },
                 success: data => {
                     prev.html(data);
-
-                    installAuth(prev);
-                    installStart(prev);
-                    installIdentify(prev);
-                    installSelect(prev);
-                    installVote(prev);
-                    installThanks(prev);
-
                     done();
                 },
             }

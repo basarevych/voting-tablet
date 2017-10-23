@@ -45,7 +45,7 @@ CREATE TABLE voting_tablet_targets (
 CREATE TABLE voting_tablet_votes (
     id int(11) NOT NULL AUTO_INCREMENT,
     user_id int(11) NULL,
-    portal_id int(11) NOT NULL,
+    portal_id int(11) NULL,
     target_id int(11) NOT NULL,
     score int(11) NOT NULL,
     voted_at timestamp NOT NULL,

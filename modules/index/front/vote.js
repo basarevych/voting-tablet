@@ -23,12 +23,12 @@ export function installVote(el) {
             timer = null;
         }
         socket.io.emit('score', { score });
-        transition('/thanks', 5);
+        transition('/thanks', 3, '/select');
     };
 
     el.find('.score-item').click(function () {
         score = $(this).data('score');
-        counter = 6;
+        counter = 3;
 
         if (timer) {
             clearInterval(timer);

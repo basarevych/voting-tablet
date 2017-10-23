@@ -66,7 +66,7 @@ class ScoreEvent {
             if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            if (!browser.device /* || !browser.cardId */ || !browser.user || !browser.target)
+            if (!browser.device /* || !browser.cardId || !browser.user */ || !browser.target)
                 return browser.socket.emit('reload');
 
             let score = parseInt(message.score);
@@ -76,8 +76,8 @@ class ScoreEvent {
             this._logger.debug('score', `Got SCORE: ${score}`);
 
             let vote = this._voteRepo.getModel();
-            vote.userId = browser.user.id;
-            vote.portalId = browser.user.portalId;
+            vote.userId = (browser.user && browser.user.id) || null;
+            vote.portalId = (browser.user && browser.user.portalId) || null;
             vote.targetId = browser.target.id;
             vote.score = score;
             vote.votedAt = moment();
