@@ -13,4 +13,10 @@ import { socket } from 'socket';
  */
 $(window).on('load', () => {
     socket.start();
+    setInterval(
+        () => {
+            $.get('/');
+        },
+        60 * 60 * 1000
+    );
 });

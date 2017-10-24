@@ -54,6 +54,7 @@ module.exports = {
                 bridge: 'expressSession',
                 session_repository: 'repositories.session',
                 expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
+                expire_interval: 60 * 60,           // seconds, check inactive sessions
                 secret: 'some unique secret here',  // could be "pwgen 32 1" output
                 //ip_header: 'X-Custom-Header',     // Name of header to get IP from (socket IP otherwise)
             },
