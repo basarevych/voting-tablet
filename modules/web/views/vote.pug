@@ -1,0 +1,45 @@
+#commentModal.modal.fade(style="display: none" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true")
+    .modal-dialog.modal-lg(role="document")
+        form(onsubmit="return false")
+            input(type="text" style="display: none")
+            input(type="password" style="display: none")
+            .modal-content
+                .modal-header
+                    h5.modal-title#commentModalLabel #{i18n('comment_title')}
+                    button.close(type="button" data-dismiss="modal" aria-label="#{i18n('modal_close_button')}")
+                        span(aria-hidden="true") &times;
+                .modal-body
+                    .form-group.messages.center
+                    .form-group.row
+                        label.col-sm-4.col-form-label.text-sm-right(for="commentModalBody") #{i18n('comment_body_label')}
+                            span.control-required #{i18n('form_control_required')}
+                        .col-sm-8
+                            textarea#commentModalBody.form-control(name="body" rows="5" validate)
+                            .invalid-feedback
+                .modal-footer
+                    button.btn.btn-secondary(type="button" data-dismiss="modal") #{i18n('comment_cancel_button')}
+                    button.btn.btn-primary(type="submit") #{i18n('comment_submit_button')}
+
+.page
+    table.score-list
+        tr
+            td(colspan="4") #{i18n('score_message')}
+        tr
+            td.score-item.score-star(data-score=1)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=2)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=3)
+                i.fa.fa-star.score-pic
+            td.score-item.score-star(data-score=4)
+                i.fa.fa-star.score-pic
+        tr
+            td.score-item.score-text(data-score=1) #{i18n('score_1')}
+            td.score-item.score-text(data-score=2) #{i18n('score_2')}
+            td.score-item.score-text(data-score=3) #{i18n('score_3')}
+            td.score-item.score-text(data-score=4) #{i18n('score_4')}
+        tr
+            td(colspan="4")
+                .buttons
+                    button.btn.btn-secondary.btn-wide.btn-ok.mr-3(type="button") #{i18n('vote_ok_button')}
+                    button.btn.btn-secondary.btn-wide.btn-comment(type="button") #{i18n('vote_comment_button')}

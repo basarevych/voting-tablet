@@ -17,7 +17,7 @@ module.exports = {
     modules: [
         '~arpen-express',
         '~arpen-i18n',
-        'index',
+        'web',
         'cardid',
     ],
 

@@ -66,8 +66,7 @@ class NewId {
             for (let browser of this._browsers.values()) {
                 if (browser.device === device) {
                     this._logger.debug('new-id', `Found device`);
-                    browser.clear();
-                    browser.device = device;
+                    browser.clear(device);
                     browser.cardId = message.trim();
                     browser.cardTimestamp = Date.now();
 

@@ -16,15 +16,15 @@ class PersonalModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.name = undefined;
-        this.surname = undefined;
-        this.lastname = undefined;
-        this.nameUa = undefined;
-        this.surnameUa = undefined;
-        this.lastnameUa = undefined;
-        this.nameEn = undefined;
-        this.surnameEn = undefined;
-        this.lastnameEn = undefined;
+        this.firstNameRu = undefined;
+        this.middleNameRu = undefined;
+        this.lastNameRu = undefined;
+        this.firstNameUk = undefined;
+        this.middleNameUk = undefined;
+        this.lastNameUk = undefined;
+        this.firstNameEn = undefined;
+        this.middleNameEn = undefined;
+        this.lastNameEn = undefined;
         this.login = undefined;
         this.title = undefined;
     }
@@ -54,50 +54,34 @@ class PersonalModel extends BaseModel {
     }
 
     /**
-     * ID setter (synonym)
-     * @type {undefined|number}
-     */
-    set uid(id) {
-        return this._setField('uid', id);
-    }
-
-    /**
-     * ID getter (synonym)
-     * @type {undefined|number}
-     */
-    get uid() {
-        return this._getField('uid');
-    }
-
-    /**
-     * Name setter
+     * First name setter
      * @type {undefined|string}
      */
-    set name(name) {
+    set firstNameRu(name) {
         return this._setField('name', name);
     }
 
     /**
-     * Name getter
+     * First name getter
      * @type {undefined|string}
      */
-    get name() {
+    get firstNameRu() {
         return this._getField('name');
     }
 
     /**
-     * Surname setter
+     * Middle name setter
      * @type {undefined|string}
      */
-    set surname(surname) {
+    set middleNameRu(surname) {
         return this._setField('surname', surname);
     }
 
     /**
-     * Surname getter
+     * Middle name getter
      * @type {undefined|string}
      */
-    get surname() {
+    get middleNameRu() {
         return this._getField('surname');
     }
 
@@ -105,7 +89,7 @@ class PersonalModel extends BaseModel {
      * Last name setter
      * @type {undefined|string}
      */
-    set lastname(lastname) {
+    set lastNameRu(lastname) {
         return this._setField('lastname', lastname);
     }
 
@@ -113,39 +97,39 @@ class PersonalModel extends BaseModel {
      * Last name getter
      * @type {undefined|string}
      */
-    get lastname() {
+    get lastNameRu() {
         return this._getField('lastname');
     }
 
     /**
-     * Name setter
+     * First name setter
      * @type {undefined|string}
      */
-    set nameUa(name) {
+    set firstNameUk(name) {
         return this._setField('name_ua', name);
     }
 
     /**
-     * Name getter
+     * First name getter
      * @type {undefined|string}
      */
-    get nameUa() {
+    get firstNameUk() {
         return this._getField('name_ua');
     }
 
     /**
-     * Surname setter
+     * Middle name setter
      * @type {undefined|string}
      */
-    set surnameUa(surname) {
+    set middleNameUk(surname) {
         return this._setField('surname_ua', surname);
     }
 
     /**
-     * Surname getter
+     * Middle name getter
      * @type {undefined|string}
      */
-    get surnameUa() {
+    get middleNameUk() {
         return this._getField('surname_ua');
     }
 
@@ -153,7 +137,7 @@ class PersonalModel extends BaseModel {
      * Last name setter
      * @type {undefined|string}
      */
-    set lastnameUa(lastname) {
+    set lastNameUk(lastname) {
         return this._setField('lastname_ua', lastname);
     }
 
@@ -161,39 +145,39 @@ class PersonalModel extends BaseModel {
      * Last name getter
      * @type {undefined|string}
      */
-    get lastnameUa() {
+    get lastNameUk() {
         return this._getField('lastname_ua');
     }
 
     /**
-     * Name setter
+     * First name setter
      * @type {undefined|string}
      */
-    set nameEn(name) {
+    set firstNameEn(name) {
         return this._setField('name_en', name);
     }
 
     /**
-     * Name getter
+     * First name getter
      * @type {undefined|string}
      */
-    get nameEn() {
+    get firstNameEn() {
         return this._getField('name_en');
     }
 
     /**
-     * Surname setter
+     * Middle name setter
      * @type {undefined|string}
      */
-    set surnameEn(surname) {
+    set middleNameEn(surname) {
         return this._setField('surname_en', surname);
     }
 
     /**
-     * Surname getter
+     * Middle name getter
      * @type {undefined|string}
      */
-    get surnameEn() {
+    get middleNameEn() {
         return this._getField('surname_en');
     }
 
@@ -201,7 +185,7 @@ class PersonalModel extends BaseModel {
      * Last name setter
      * @type {undefined|string}
      */
-    set lastnameEn(lastname) {
+    set lastNameEn(lastname) {
         return this._setField('lastname_en', lastname);
     }
 
@@ -209,7 +193,7 @@ class PersonalModel extends BaseModel {
      * Last name getter
      * @type {undefined|string}
      */
-    get lastnameEn() {
+    get lastNameEn() {
         return this._getField('lastname_en');
     }
 

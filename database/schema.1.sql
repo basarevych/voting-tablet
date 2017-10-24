@@ -48,6 +48,7 @@ CREATE TABLE voting_tablet_votes (
     portal_id int(11) NULL,
     target_id int(11) NOT NULL,
     score int(11) NOT NULL,
+    comment text NULL,
     voted_at timestamp NOT NULL,
     CONSTRAINT voting_tablet_votes_pk PRIMARY KEY (id),
     CONSTRAINT voting_tablet_votes_user_fk FOREIGN KEY(user_id)

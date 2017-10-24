@@ -21,6 +21,7 @@ class VoteModel extends BaseModel {
         this.portalId = undefined;
         this.targetId = undefined;
         this.score = undefined;
+        this.comment = undefined;
         this.votedAt = undefined;
     }
 
@@ -94,6 +95,22 @@ class VoteModel extends BaseModel {
      */
     get score() {
         return this._getField('score');
+    }
+
+    /**
+     * Comment setter
+     * @type {undefined|string|null}
+     */
+    set comment(comment) {
+        return this._setField('comment', comment);
+    }
+
+    /**
+     * Comment getter
+     * @type {undefined|string|null}
+     */
+    get comment() {
+        return this._getField('comment');
     }
 
     /**
