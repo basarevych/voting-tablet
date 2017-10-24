@@ -1,13 +1,13 @@
 {
   "name": "web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "build": "webpack --progress",
     "watch": "webpack --progress --watch"
   },
   "devDependencies": {
-    "arpen-express": "~0.0.12",
+    "arpen-express": "~0.0.13",
     "autoprefixer": "~7.1.5",
     "babel-core": "~6.26.0",
     "babel-loader": "~7.1.2",

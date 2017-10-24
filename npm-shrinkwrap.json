@@ -53,9 +53,9 @@
       "integrity": "sha1-/ts5T58OAqqXaOcCvaI7UF+ufh8="
     },
     "ajv": {
-      "version": "5.2.4",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.4.tgz",
-      "integrity": "sha1-Pa+ai2ciEpn9ro2C0RftjmyAJEs=",
+      "version": "5.2.5",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.5.tgz",
+      "integrity": "sha1-tjcjTT4mdetfefxlIkKoU6SMtJ8=",
       "dev": true,
       "requires": {
         "co": "4.6.0",
@@ -117,9 +117,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.24",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.24.tgz",
-      "integrity": "sha512-tMN35GqYFaVdlz+rjskYwnA5/fqt7y8CiRdB0lBHkMJpdPZwFcVFSlvjv0P9oeMRC6ZKRcKj4Y/7RVSdN5YHhw==",
+      "version": "0.2.25",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.25.tgz",
+      "integrity": "sha512-7BXe65VzcJLADbSHk/1Qdt9cynG8wNmI0/WsaUrQZcYx2tfYsXNAih7HZnDzW/v1FwoUKISP7lQbzwk0it7n0Q==",
       "requires": {
         "debug": "3.1.0",
         "fs-ext": "1.0.0",
@@ -133,9 +133,9 @@
       }
     },
     "arpen-express": {
-      "version": "0.0.12",
-      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.12.tgz",
-      "integrity": "sha512-8DqReDP5NL3E+11iI3zFpaN1WtQNB37dUixNtY462M9y4G35fB+5xGaW0cPUSpELly2jHQAPA/oLHO27ZDFtkQ==",
+      "version": "0.0.13",
+      "resolved": "https://registry.npmjs.org/arpen-express/-/arpen-express-0.0.13.tgz",
+      "integrity": "sha512-84eOsB4G2mehcOgfywMeRsBF5A4KG2q8Byi8oyeUUimFM9pMPM/EFrQQDouF/aLyoDXWl4NMDDjHWZQ5PW+nqQ==",
       "requires": {
         "body-parser": "1.18.2",
         "cookie-parser": "1.4.3",
@@ -930,7 +930,7 @@
       "integrity": "sha1-doedJ0BoJhsZH+Dy9Wx0wvQgjos=",
       "dev": true,
       "requires": {
-        "ajv": "5.2.4",
+        "ajv": "5.2.5",
         "babel-code-frame": "6.26.0",
         "chalk": "2.3.0",
         "concat-stream": "1.6.0",
@@ -3109,7 +3109,7 @@
       "integrity": "sha512-UUkEAPdSGxtRpiV9ozJ5cMTtYiqz7Ni1OGqLXRCynrvzdtR1p+cfOWe2RJLwvUG8hNanaSRjecIqwOjqeatDsA==",
       "dev": true,
       "requires": {
-        "ajv": "5.2.4",
+        "ajv": "5.2.5",
         "ajv-keywords": "2.1.0",
         "chalk": "2.3.0",
         "lodash": "4.17.4",
