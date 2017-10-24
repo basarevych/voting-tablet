@@ -55,7 +55,7 @@ module.exports = {
          *
          * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
          */
-        extensions: [ '*', '.js', '.css', '.scss' ],
+        extensions: [ '*', '.json', '.js', '.css', '.scss' ],
 
         // An array of directory names to be resolved to the current directory
         modules: [ root('front'), root('node_modules') ],

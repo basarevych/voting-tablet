@@ -4,6 +4,7 @@
  */
 'use strict';
 
+import packageInfo from '../package.json';
 import { socket } from 'socket';
 import { installAuth } from 'auth';
 import { installStart } from 'start';
@@ -63,7 +64,7 @@ export function transition(url, timeoutSec, timeoutUrl) {
         } else if (socket.connected && !socket.registered) {
             forceTransition = true;
             socket.registered = true;
-            socket.io.emit('register', { server: auth.server, token: auth.token });
+            socket.io.emit('register', { server: auth.server, token: auth.token, version: packageInfo.version });
         }
 
         if (!forceTransition && lastTransition.url === url)

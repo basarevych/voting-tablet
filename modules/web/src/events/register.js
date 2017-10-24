@@ -62,13 +62,15 @@ class RegisterEvent {
             if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            this._logger.debug('register', `Got REGISTER`);
+            this._logger.debug('register', `Got REGISTER v${message.version}`);
 
             let { session } = await this._session.decodeJwt(message.server, message.token);
             if (!session || !session.payload.started)
                 return;
 
             browser.clear(session.payload.device);
+            if (require('../../package.json').version !== message.version)
+                browser.socket.emit('reload');
 
             for (let [oldId, oldBrowser] of this._browsers) {
                 if (oldId !== id && oldBrowser.device === browser.device) {
