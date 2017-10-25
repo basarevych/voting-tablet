@@ -14,12 +14,14 @@ class RegisterEvent {
      * @param {Logger} logger                   Logger service
      * @param {Session} session                 Session service
      * @param {Browsers} browsers               Browsers service
+     * @param {SessionRepository} sessionRepo   Session repository
      */
-    constructor(app, logger, session, browsers) {
+    constructor(app, logger, session, browsers, sessionRepo) {
         this._app = app;
         this._logger = logger;
         this._session = session;
         this._browsers = browsers;
+        this._sessionRepo = sessionRepo;
     }
 
     /**
@@ -40,6 +42,7 @@ class RegisterEvent {
             'logger',
             'session',
             'browsers',
+            'repositories.session',
         ];
     }
 
@@ -62,21 +65,20 @@ class RegisterEvent {
             if (!browser || typeof message !== 'object' || message === null)
                 return;
 
-            this._logger.debug('register', `Got REGISTER v${message.version}`);
+            let version = require('../../package.json').version;
+            this._logger.debug('register', `Got REGISTER v${message.version} (our v${version})`);
 
             let { session } = await this._session.decodeJwt(message.server, message.token);
             if (!session || !session.payload.started)
                 return;
 
-            browser.clear(session.payload.device);
             if (require('../../package.json').version !== message.version)
-                browser.socket.emit('reload');
+                return browser.socket.emit('reload');
 
+            browser.clear(session.payload.device);
             for (let [oldId, oldBrowser] of this._browsers) {
-                if (oldId !== id && oldBrowser.device === browser.device) {
+                if (oldId !== id && oldBrowser.device === browser.device)
                     oldBrowser.clear();
-                    oldBrowser.socket.emit('reload');
-                }
             }
         } catch (error) {
             this._logger.error(new NError(error, 'RegisterEvent.handle()'));
