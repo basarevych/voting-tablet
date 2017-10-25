@@ -82,7 +82,7 @@ export function installVote(el) {
         startTimer(el);
     });
 
-    el.find('.btn-ok').click(done);
+    el.find('.btn-ok').click(() => done());
     el.find('.btn-comment').on('click', () => {
         lastTransition.cancelTimer();
         cancelTimer();
