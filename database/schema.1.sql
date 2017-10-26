@@ -1,3 +1,6 @@
+SET NAMES 'utf8';
+SET CHARACTER SET utf8;
+
 --
 -- Sessions
 --

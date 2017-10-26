@@ -55,7 +55,7 @@ class MigrateDb {
             .run(argv);
 
         const instance = 'portal';
-        const latestVersion = 1;
+        const latestVersion = 2;
 
         try {
             let client = await this._mysql.connect(instance);
@@ -68,6 +68,19 @@ class MigrateDb {
                 currentVersion = 1;
             } catch (error) {
                 // do nothing
+            }
+            if (currentVersion === 1) {
+                try {
+                    let result = await client.query(
+                        `SELECT count(*) as count
+                           FROM voting_tablet_targets
+                          WHERE code = 'bill'`
+                    );
+                    if (result[0].count >= 1)
+                        currentVersion = 2;
+                } catch (error) {
+                    // do nothing
+                }
             }
             client.done();
 
@@ -88,16 +101,18 @@ class MigrateDb {
 
                     await this._app.info(`==> ${path.basename(filename)}\n`);
                     return this._runner.exec(
-                        'sh',
+                        'mysql',
                         [
-                            '-c',
-                            `mysql -f -u ${this._config.get(`mysql.${instance}.user`)} ` +
-                            `-p${this._config.get(`mysql.${instance}.password`)} ` +
-                            `-h ${this._config.get(`mysql.${instance}.host`)} ` +
-                            `-P ${this._config.get(`mysql.${instance}.port`)} ` +
-                            `${this._config.get(`mysql.${instance}.database`)} < ${filename}`
+                            '-f', '-e', `source ${filename}`,
+                            '-u', this._config.get(`mysql.${instance}.user`),
+                            `-p${this._config.get(`mysql.${instance}.password`)}`,
+                            '-h', this._config.get(`mysql.${instance}.host`),
+                            '-P', this._config.get(`mysql.${instance}.port`),
+                            this._config.get(`mysql.${instance}.database`),
                         ],
-                        { pipe: process }
+                        {
+                            pipe: process
+                        }
                     );
                 },
                 Promise.resolve()

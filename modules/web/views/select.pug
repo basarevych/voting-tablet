@@ -3,4 +3,7 @@
         each row in targets
             tr
                 each target in row
-                    td.target-item(data-id=target.id, data-code=target.code, class="colors-" + target.code) #{target.name}
+                    if target
+                        td.target-item(data-id=target.id, data-code=target.code, class="colors-" + target.code) #{target.name}
+                    else
+                        td &nbsp;

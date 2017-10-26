@@ -55,14 +55,25 @@ class SelectRoute {
         let targets = await this._targetRepo.findAll();
 
         let result = [];
-        let i = 0;
         let row = [];
-        for (let target of targets) {
-            row.push(target);
-            if (++i >= 3) {
+        let width = 4;
+        let height = 3;
+        for (let i = 1; i <= width * height; i++) {
+            if (targets.length)
+                row.push(targets.shift());
+            else
+                row.push(null);
+
+            if (!(i % width)) {
+                console.log(row.length);
                 result.push(row);
                 row = [];
-                i = 0;
+                if (i === width * (height - 1)) {
+                    for (let j = 0; j < Math.floor((width - targets.length) / 2); j++) {
+                        row.push(null);
+                        i++;
+                    }
+                }
             }
         }
 

@@ -54,8 +54,8 @@
     border-collapse: separate;
 
     .target-item {
-      height: 50%;
-      width: 33%;
+      height: 33%;
+      width: 25%;
       cursor: pointer;
       text-align: center;
       vertical-align: middle;
@@ -115,5 +115,17 @@
   background-color: #ffc107;
 }
 .colors-office {
-  background-color: #28a745;
+  background-color: #0e7439;
+}
+.colors-bill {
+  background-color: #85c1e9;
+}
+.colors-care {
+  background-color: #2ecc71;
+}
+.colors-driver {
+  background-color: #f1948a;
+}
+.colors-courier {
+  background-color:  #34495e ;
 }
