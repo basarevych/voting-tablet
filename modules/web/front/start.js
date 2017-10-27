@@ -6,17 +6,17 @@
 'use strict';
 
 import { socket } from 'socket';
-import { transition, lastTransition } from 'transition';
+import { transition, state } from 'transition';
 
 let savedTransition;
 let installed = false;
 export function installStart() {
-    savedTransition = lastTransition.timestamp;
+    savedTransition = state.timestamp;
     if (!installed) {
         installed = true;
         $('body').on('click', () => {
-            if (lastTransition.timestamp === savedTransition &&
-                lastTransition.url === '/start' && socket.registered)
+            if (state.timestamp === savedTransition &&
+                state.url === '/start' && socket.registered)
                 transition('/select');
         });
     }

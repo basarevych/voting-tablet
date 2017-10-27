@@ -5,7 +5,7 @@
 'use strict';
 
 import { socket } from 'socket';
-import { transition, lastTransition } from 'transition';
+import { transition, state } from 'transition';
 import { Form } from 'arpen-express/front/jquery/bootstrap-form';
 
 let score, timer, counter, savedTransition;
@@ -27,7 +27,7 @@ function done(comment) {
 }
 
 function startTimer(el) {
-    if (savedTransition !== lastTransition.timestamp)
+    if (savedTransition !== state.timestamp)
         return;
 
     counter = 6;
@@ -45,11 +45,11 @@ function startTimer(el) {
 
 export function installVote(el) {
     cancelTimer();
-    if (!el.find('.score-list').length || !lastTransition.code)
+    if (!el.find('.score-list').length || !state.code)
         return;
 
-    savedTransition = lastTransition.timestamp;
-    $('body').addClass('colors-' + lastTransition.code);
+    savedTransition = state.timestamp;
+    $('body').addClass('colors-' + state.code);
 
     commentModal = $('#commentModal');
     commentForm.init(
@@ -78,13 +78,13 @@ export function installVote(el) {
         },
     );
     commentModal.on('hidden.bs.modal', () => {
-        lastTransition.startTimer();
+        state.startTimer();
         startTimer(el);
     });
 
     el.find('.btn-ok').click(() => done());
     el.find('.btn-comment').on('click', () => {
-        lastTransition.cancelTimer();
+        state.cancelTimer();
         cancelTimer();
         commentModal.modal('show');
     });
@@ -93,7 +93,7 @@ export function installVote(el) {
     el.find('.score-item').click(function () {
         score = $(this).data('score');
 
-        lastTransition.startTimer();
+        state.startTimer();
         startTimer(el);
 
         el.find('.buttons').css('visibility', 'visible');

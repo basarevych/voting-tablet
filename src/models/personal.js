@@ -16,17 +16,19 @@ class PersonalModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.firstNameRu = undefined;
-        this.middleNameRu = undefined;
-        this.lastNameRu = undefined;
-        this.firstNameUk = undefined;
-        this.middleNameUk = undefined;
-        this.lastNameUk = undefined;
-        this.firstNameEn = undefined;
-        this.middleNameEn = undefined;
-        this.lastNameEn = undefined;
-        this.login = undefined;
-        this.title = undefined;
+        this._removeField('id', 'id');
+        this._addField('uid', 'id');
+        this._addField('name', 'firstNameRu');
+        this._addField('surname', 'middleNameRu');
+        this._addField('lastname', 'lastNameRu');
+        this._addField('name_ua', 'firstNameUk');
+        this._addField('surname_ua', 'middleNameUk');
+        this._addField('lastname_ua', 'lastNameUk');
+        this._addField('name_en', 'firstNameEn');
+        this._addField('surname_en', 'middleNameEn');
+        this._addField('lastname_en', 'lastNameEn');
+        this._addField('login', 'login');
+        this._addField('pos_title', 'title');
     }
 
     /**

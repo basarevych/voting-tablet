@@ -1,14 +1,14 @@
 /**
- * SignIn route
- * @module web/routes/sign-in
+ * Sign route
+ * @module web/routes/sign
  */
 const express = require('express');
 const NError = require('nerror');
 
 /**
- * SignIn route class
+ * Sign route class
  */
-class SignInRoute {
+class SignRoute {
     /**
      * Create service
      * @param {App} app                         The application
@@ -33,11 +33,11 @@ class SignInRoute {
     }
 
     /**
-     * Service name is 'web.routes.signIn'
+     * Service name is 'web.routes.sign'
      * @type {string}
      */
     static get provides() {
-        return 'web.routes.signIn';
+        return 'web.routes.sign';
     }
 
     /**
@@ -62,6 +62,9 @@ class SignInRoute {
      * @param {function} next                   Express next middleware function
      */
     async postSignIn(req, res, next) {
+        if (req.session.started)
+            return next(new NError({ httpStatus: 403 }, 'Forbidden'));
+
         try {
             let form = await this._signInForm.validate(res.locals.locale, req.body);
             let pinCode = form.getField('pin_code');
@@ -102,10 +105,13 @@ class SignInRoute {
      * @param {function} next                   Express next middleware function
      */
     async getSignOut(req, res, next) {
+        if (!req.session.started)
+            return next(new NError({ httpStatus: 401 }, 'Unauthorized'));
+
         req.user = null;
         req.session = {};
         res.redirect('/');
     }
 }
 
-module.exports = SignInRoute;
+module.exports = SignRoute;

@@ -17,12 +17,12 @@ class VoteModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.userId = undefined;
-        this.portalId = undefined;
-        this.targetId = undefined;
-        this.score = undefined;
-        this.comment = undefined;
-        this.votedAt = undefined;
+        this._addField('user_id', 'userId');
+        this._addField('portal_id', 'portalId');
+        this._addField('target_id', 'targetId');
+        this._addField('score', 'score');
+        this._addField('comment', 'comment');
+        this._addField('voted_at', 'votedAt');
     }
 
     /**

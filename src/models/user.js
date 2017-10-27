@@ -17,10 +17,10 @@ class UserModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.portalId = undefined;
-        this.cardId = undefined;
-        this.scannedAt = undefined;
-        this.registeredAt = undefined;
+        this._addField('portal_id', 'portalId');
+        this._addField('card_id', 'cardId');
+        this._addField('scanned_at', 'scannedAt');
+        this._addField('registered_at', 'registeredAt');
     }
 
     /**

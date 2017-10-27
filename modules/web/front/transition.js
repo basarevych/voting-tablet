@@ -25,7 +25,7 @@ function checkConnected() {
     }
 }
 
-export let lastTransition = {
+export let state = {
     url: null,
     timestamp: 0,
     timer: null,
@@ -37,7 +37,7 @@ export let lastTransition = {
         }
     },
     startTimer: function (timeout = 15, url = '/start') {
-        this.savedTransition = lastTransition.timestamp;
+        this.savedTransition = state.timestamp;
         this.cancelTimer();
         this.timer = setTimeout(
             () => {
@@ -51,12 +51,12 @@ export let lastTransition = {
 };
 
 export function transition(url, timeoutSec, timeoutUrl) {
-    lastTransition.cancelTimer();
+    state.cancelTimer();
     checkConnected();
 
-    $.get('/authorized', auth => {
+    $.get('/status', status => {
         let forceTransition = false;
-        if (!auth.success) {
+        if (!status.authorized) {
             forceTransition = true;
             socket.registered = false;
             if (url !== '/start')
@@ -64,14 +64,14 @@ export function transition(url, timeoutSec, timeoutUrl) {
         } else if (socket.connected && !socket.registered) {
             forceTransition = true;
             socket.registered = true;
-            socket.io.emit('register', { server: auth.server, token: auth.token, version: packageInfo.version });
+            socket.io.emit('register', { server: status.server, token: status.token, version: packageInfo.version });
         }
 
-        if (!forceTransition && lastTransition.url === url)
+        if (!forceTransition && state.url === url)
             return;
 
-        lastTransition.url = url;
-        lastTransition.timestamp = Date.now();
+        state.url = url;
+        state.timestamp = Date.now();
 
         let prev = $('#page' + (curPage === 1 ? 2 : 1));
 
@@ -103,7 +103,7 @@ export function transition(url, timeoutSec, timeoutUrl) {
             if (url === '/start')
                 socket.io.emit('reset');
             else
-                lastTransition.startTimer(timeoutSec, timeoutUrl);
+                state.startTimer(timeoutSec, timeoutUrl);
 
             checkConnected();
         };

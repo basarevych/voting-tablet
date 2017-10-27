@@ -63,6 +63,9 @@ class VoteRoute {
      * @param {function} next                   Express next middleware function
      */
     async postVoteComment(req, res, next) {
+        if (!req.session.started)
+            return next(new NError({ httpStatus: 401 }, 'Unauthorized'));
+
         try {
             let form = await this._commentForm.validate(res.locals.locale, req.body);
             res.json(form.toJSON());

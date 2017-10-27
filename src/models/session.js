@@ -17,12 +17,12 @@ class SessionModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.token = undefined;
-        this.userId = undefined;
-        this.payload = undefined;
-        this.info = undefined;
-        this.createdAt = undefined;
-        this.updatedAt = undefined;
+        this._addField('token', 'token');
+        this._addField('user_id', 'userId');
+        this._addField('payload', 'payload');
+        this._addField('info', 'info');
+        this._addField('created_at', 'createdAt');
+        this._addField('updated_at', 'updatedAt');
     }
 
     /**
@@ -152,10 +152,20 @@ class SessionModel extends BaseModel {
      * @param {string|null} [options.timeZone='UTC']    DB time zone
      */
     _unserialize(data, options = {}) {
-        if (data.payload)
-            data.payload = JSON.parse(data.payload);
-        if (data.info)
-            data.info = JSON.parse(data.info);
+        if (data.payload) {
+            try {
+                data.payload = JSON.parse(data.payload);
+            } catch (error) {
+                data.payload = {};
+            }
+        }
+        if (data.info) {
+            try {
+                data.info = JSON.parse(data.info);
+            } catch (error) {
+                data.info = {};
+            }
+        }
         return super._unserialize(data, options);
     }
 }

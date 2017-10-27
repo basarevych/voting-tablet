@@ -1,28 +1,28 @@
 /**
- * Authorized route
- * @module web/routes/authorized
+ * Status route
+ * @module web/routes/status
  */
 const express = require('express');
 
 /**
- * Authorized route class
+ * Status route class
  */
-class AuthorizedRoute {
+class StatusRoute {
     /**
      * Create service
      */
     constructor() {
         this.priority = 0;
         this.router = express.Router();
-        this.router.get('/authorized', this.getAuthorized.bind(this));
+        this.router.get('/status', this.getStatus.bind(this));
     }
 
     /**
-     * Service name is 'web.routes.authorized'
+     * Service name is 'web.routes.status'
      * @type {string}
      */
     static get provides() {
-        return 'web.routes.authorized';
+        return 'web.routes.status';
     }
 
     /**
@@ -39,13 +39,13 @@ class AuthorizedRoute {
      * @param {object} res          Express response
      * @param {function} next       Express next middleware function
      */
-    getAuthorized(req, res, next) {
+    getStatus(req, res, next) {
         res.json({
-            success: !!req.session.started,
+            authorized: !!req.session.started,
             server: req.session.server,
             token: req.session.token,
         });
     }
 }
 
-module.exports = AuthorizedRoute;
+module.exports = StatusRoute;

@@ -16,8 +16,8 @@ class TargetModel extends BaseModel {
     constructor(mysql, util) {
         super(mysql, util);
 
-        this.code = undefined;
-        this.name = undefined;
+        this._addField('code', 'code');
+        this._addField('name', 'name');
     }
 
     /**
