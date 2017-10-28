@@ -14,13 +14,11 @@ class MigrateDb {
      * Create the service
      * @param {App} app                 The application
      * @param {object} config           Configuration
-     * @param {Runner} runner           Runner service
-     * @param {Mysql} mysql             Mysql service
+     * @param {MySQL} mysql             Mysql service
      */
-    constructor(app, config, runner, mysql) {
+    constructor(app, config, mysql) {
         this._app = app;
         this._config = config;
-        this._runner = runner;
         this._mysql = mysql;
     }
 
@@ -37,7 +35,7 @@ class MigrateDb {
      * @type {string[]}
      */
     static get requires() {
-        return [ 'app', 'config', 'runner', 'mysql' ];
+        return [ 'app', 'config', 'mysql' ];
     }
 
     /**
@@ -85,8 +83,8 @@ class MigrateDb {
             client.done();
 
             let deltas = [];
-            for (let i = currentVersion; i < latestVersion; i++)
-                deltas.push(i ? `schema.${i}-${i + 1}.sql` : `schema.1.sql`);
+            for (let i = currentVersion + 1; i <= latestVersion; i++)
+                deltas.push(`schema.${i}.sql`);
 
             await deltas.reduce(
                 async (prev, cur) => {
@@ -100,20 +98,7 @@ class MigrateDb {
                     }
 
                     await this._app.info(`==> ${path.basename(filename)}\n`);
-                    return this._runner.exec(
-                        'mysql',
-                        [
-                            '-f', '-e', `source ${filename}`,
-                            '-u', this._config.get(`mysql.${instance}.user`),
-                            `-p${this._config.get(`mysql.${instance}.password`)}`,
-                            '-h', this._config.get(`mysql.${instance}.host`),
-                            '-P', this._config.get(`mysql.${instance}.port`),
-                            this._config.get(`mysql.${instance}.database`),
-                        ],
-                        {
-                            pipe: process
-                        }
-                    );
+                    return this._mysql.exec(filename, instance);
                 },
                 Promise.resolve()
             );

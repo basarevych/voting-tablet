@@ -14,14 +14,14 @@ class InitDb {
      * @param {object} config           Configuration
      * @param {Util} util               Util service
      * @param {Filer} filer             Filer service
-     * @param {Runner} runner           Runner service
+     * @param {MySQL} mysql             Mysql service
      */
-    constructor(app, config, util, filer, runner) {
+    constructor(app, config, util, filer, mysql) {
         this._app = app;
         this._config = config;
         this._util = util;
         this._filer = filer;
-        this._runner = runner;
+        this._mysql = mysql;
     }
 
     /**
@@ -37,7 +37,7 @@ class InitDb {
      * @type {string[]}
      */
     static get requires() {
-        return [ 'app', 'config', 'util', 'filer', 'runner' ];
+        return [ 'app', 'config', 'util', 'filer', 'mysql' ];
     }
 
     /**
@@ -55,16 +55,16 @@ class InitDb {
             .option({
                 name: 'password',
                 short: 'p',
-                type: 'boolean',
+                type: 'string',
             })
             .run(argv);
 
-        let usePassword = args.options.password || false;
+        let password = args.options.password || false;
 
         const instance = 'portal';
-        const tmpFile = '/tmp/' + this._util.getRandomString(32);
 
         try {
+            let filename = '/tmp/arpen.db.' + this._util.getRandomString(16);
             let sql =
 `create user '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}'
     identified by '${this._config.get(`mysql.${instance}.password`)}';
@@ -79,27 +79,21 @@ grant all privileges on ${this._config.get(`mysql.${instance}.database`)}.voting
 grant select on ${this._config.get(`mysql.${instance}.database`)}.scms_personal
     to '${this._config.get(`mysql.${instance}.user`)}'@'${this._config.get(`mysql.${instance}.host`)}';
 flush privileges;`;
+            await this._filer.lockWrite(filename, sql);
 
-            await this._filer.lockWrite(tmpFile, sql);
-
-            if (usePassword)
-                await this._app.info('Please enter MySQL root password');
-
-            let result = await this._runner.exec(
-                'sh',
-                ['-c', `mysql -f -u root ${usePassword ? '-p' : ''} < ${tmpFile}`],
-                { pipe: process }
+            await this._mysql.exec(
+                filename,
+                {
+                    host: this._config.get(`postgres.${instance}.host`),
+                    port: this._config.get(`postgres.${instance}.port`),
+                    user: 'root',
+                    password: password,
+                }
             );
 
-            await this._filer.remove(tmpFile);
-
-            return result.code;
+            await this._filer.remove(filename);
+            return 0;
         } catch (error) {
-            try {
-                await this._filer.remove(tmpFile);
-            } catch (error) {
-                // do nothing
-            }
             await this.error(error);
         }
     }
