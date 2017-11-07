@@ -67,6 +67,9 @@ export function transition(url, timeoutSec, timeoutUrl) {
             socket.io.emit('register', { server: status.server, token: status.token, version: packageInfo.version });
         }
 
+        if (socket.registered && url === '/start')
+            url = '/select';
+
         if (!forceTransition && state.url === url)
             return;
 
